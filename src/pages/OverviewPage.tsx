@@ -1,6 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import projects, { ColorScheme, LanguageCode, colorSchemes } from "../config";
+import projects, {
+  ColorScheme,
+  DeviceClass,
+  DEVICE_CLASS_DEFAULTS,
+  LanguageCode,
+  colorSchemes,
+  getOutputSize,
+  getProjectDeviceClasses,
+  getProjectOutputSizesForClass,
+} from "../config";
 import Screen from "../components/Screen";
 
 const SCALE_OPTIONS = [0.25, 0.5, 0.75, 1.0];
@@ -31,6 +40,30 @@ function OverviewPage() {
   const language = (languageParam as LanguageCode) || project.languages[0];
   const colorScheme = (colorSchemeParam as ColorScheme) || systemColorScheme;
 
+  // Get device classes for this project
+  const deviceClasses = useMemo(
+    () => getProjectDeviceClasses(project),
+    [project]
+  );
+
+  // Initialize preview sizes with defaults, respecting project's available sizes
+  const [previewSizes, setPreviewSizes] = useState<Record<DeviceClass, string>>(
+    () => {
+      const initial: Record<DeviceClass, string> = { ...DEVICE_CLASS_DEFAULTS };
+      // Ensure defaults are valid for this project
+      for (const dc of deviceClasses) {
+        const projectSizes = getProjectOutputSizesForClass(project, dc);
+        if (
+          projectSizes.length > 0 &&
+          !projectSizes.find((s) => s.key === initial[dc])
+        ) {
+          initial[dc] = projectSizes[0].key;
+        }
+      }
+      return initial;
+    }
+  );
+
   const handleProjectChange = (newProject: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("project", newProject);
@@ -40,6 +73,27 @@ function OverviewPage() {
       params.set("language", newProjectConfig.languages[0]);
     }
     setSearchParams(params);
+
+    // Reset preview sizes for new project
+    if (newProjectConfig) {
+      const newDeviceClasses = getProjectDeviceClasses(newProjectConfig);
+      const newPreviewSizes: Record<DeviceClass, string> = {
+        ...DEVICE_CLASS_DEFAULTS,
+      };
+      for (const dc of newDeviceClasses) {
+        const projectSizes = getProjectOutputSizesForClass(
+          newProjectConfig,
+          dc
+        );
+        if (
+          projectSizes.length > 0 &&
+          !projectSizes.find((s) => s.key === newPreviewSizes[dc])
+        ) {
+          newPreviewSizes[dc] = projectSizes[0].key;
+        }
+      }
+      setPreviewSizes(newPreviewSizes);
+    }
   };
 
   const handleScaleChange = (newScale: string) => {
@@ -58,6 +112,16 @@ function OverviewPage() {
     const params = new URLSearchParams(searchParams);
     params.set("colorScheme", newColorScheme);
     setSearchParams(params);
+  };
+
+  const handlePreviewSizeChange = (
+    deviceClass: DeviceClass,
+    sizeKey: string
+  ) => {
+    setPreviewSizes((prev) => ({
+      ...prev,
+      [deviceClass]: sizeKey,
+    }));
   };
 
   return (
@@ -129,38 +193,67 @@ function OverviewPage() {
       </div>
 
       <div className="overview-grid">
-        {project.devices.map((device) => (
-          <div key={device.key} className="overview-device">
-            <h2>{device.key}</h2>
-            <div className="overview-screens">
-              {device.screens.map((screen) => (
-                <div
-                  key={screen.key}
-                  className="overview-screen-wrapper"
-                  style={{
-                    width: (device.width / 2) * scale,
-                    height: (device.height / 2) * scale,
-                  }}
+        {deviceClasses.map((deviceClass) => {
+          const screens = project.screens[deviceClass];
+          const availableSizes = getProjectOutputSizesForClass(
+            project,
+            deviceClass
+          );
+          const selectedSizeKey = previewSizes[deviceClass];
+          const outputSize = getOutputSize(selectedSizeKey);
+
+          if (!screens || !outputSize) {
+            return null;
+          }
+
+          return (
+            <div key={deviceClass} className="overview-device">
+              <div className="overview-device-header">
+                <h2>{deviceClass}</h2>
+                <select
+                  value={selectedSizeKey}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                    handlePreviewSizeChange(deviceClass, e.target.value)
+                  }
                 >
+                  {availableSizes.map((size) => (
+                    <option key={size.key} value={size.key}>
+                      {size.key} ({size.width}×{size.height})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="overview-screens">
+                {screens.map((screen) => (
                   <div
-                    className="overview-screen-scaled"
+                    key={screen.key}
+                    className="overview-screen-wrapper"
                     style={{
-                      transform: `scale(${scale})`,
-                      transformOrigin: "top left",
+                      width: (outputSize.width / 2) * scale,
+                      height: (outputSize.height / 2) * scale,
                     }}
                   >
-                    <Screen
-                      projectKey={project.key}
-                      deviceKey={device.key}
-                      screenKey={screen.key}
-                      language={language}
-                    />
+                    <div
+                      className="overview-screen-scaled"
+                      style={{
+                        transform: `scale(${scale})`,
+                        transformOrigin: "top left",
+                      }}
+                    >
+                      <Screen
+                        projectKey={project.key}
+                        deviceClass={deviceClass}
+                        screenKey={screen.key}
+                        language={language}
+                        outputSizeKey={selectedSizeKey}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

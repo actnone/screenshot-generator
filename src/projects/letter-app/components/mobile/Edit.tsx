@@ -1,11 +1,7 @@
-import { LanguageCode } from "../../../../config";
+import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 
-interface EditProps {
-  language: LanguageCode;
-}
-
-function Edit({ language }: EditProps) {
+function Edit({ language }: ScreenComponentProps) {
   return (
     <div className="edit">
       <div className="teaser">{translations[language].edit}</div>

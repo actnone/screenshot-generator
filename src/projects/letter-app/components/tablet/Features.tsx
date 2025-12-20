@@ -1,11 +1,7 @@
-import { LanguageCode } from "../../../../config";
+import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 
-interface FeaturesProps {
-  language: LanguageCode;
-}
-
-function Features({ language }: FeaturesProps) {
+function Features({ language }: ScreenComponentProps) {
   return (
     <div className="features-sidebyside">
       <div className="features">

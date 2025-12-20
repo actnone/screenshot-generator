@@ -1,20 +1,28 @@
 import { useParams } from "react-router-dom";
 import Screen from "../components/Screen";
-import { LanguageCode } from "../config";
+import { DeviceClass, LanguageCode } from "../config";
 
 function ScreenPage() {
-  const { projectKey, deviceKey, screenKey, language } = useParams();
+  const { projectKey, deviceClass, screenKey, language, outputSizeKey } =
+    useParams();
 
-  if (!projectKey || !deviceKey || !screenKey || !language) {
+  if (
+    !projectKey ||
+    !deviceClass ||
+    !screenKey ||
+    !language ||
+    !outputSizeKey
+  ) {
     return null;
   }
 
   return (
     <Screen
       projectKey={projectKey}
-      deviceKey={deviceKey}
+      deviceClass={deviceClass as DeviceClass}
       screenKey={screenKey}
       language={language as LanguageCode}
+      outputSizeKey={outputSizeKey}
     />
   );
 }

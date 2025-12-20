@@ -21,11 +21,11 @@ const router = createBrowserRouter([
     element: <OverviewPage />,
   },
   {
-    path: "/devices/:projectKey/:deviceKey",
+    path: "/devices/:projectKey/:deviceClass",
     element: <DevicePage />,
   },
   {
-    path: "/screens/:projectKey/:deviceKey/:screenKey/:language",
+    path: "/screens/:projectKey/:deviceClass/:screenKey/:language/:outputSizeKey",
     element: <ScreenPage />,
   },
 ]);

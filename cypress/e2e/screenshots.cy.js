@@ -1,4 +1,4 @@
-import projects from '../../src/config';
+import projects, { getOutputSize, getDeviceClassForSize } from '../../src/config';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -7,19 +7,29 @@ describe('screenshots', () => {
     cy.visit('http://localhost:3000');
 
     projects.forEach((project) => {
-      project.devices.forEach((device) => {
-        cy.viewport(device.width / 2, device.height / 2);
+      project.outputSizes.forEach((outputSizeKey) => {
+        const outputSize = getOutputSize(outputSizeKey);
+        const deviceClass = getDeviceClassForSize(outputSizeKey);
 
-        device.screens.forEach((screen, index) => {
+        if (!outputSize || !deviceClass) {
+          return;
+        }
+
+        const screens = project.screens[deviceClass];
+        if (!screens) {
+          return;
+        }
+
+        cy.viewport(outputSize.width / 2, outputSize.height / 2);
+
+        screens.forEach((screen, index) => {
           project.languages.forEach((language) => {
-            const url = `${BASE_URL}/screens/${project.key}/${device.key}/${screen.key}/${language}`;
+            const url = `${BASE_URL}/screens/${project.key}/${deviceClass}/${screen.key}/${language}/${outputSizeKey}`;
             cy.visit(url);
 
-            device.fastlaneKeys.forEach((fastlaneKey) => {
-              const filename = `${project.key}/${language}/${index + 1}_${fastlaneKey}_${index + 1}`;
-              cy.wait(500);
-              cy.screenshot(filename, { overwrite: true, capture: 'viewport' });
-            });
+            const filename = `${project.key}/${language}/${outputSizeKey}/${index + 1}_${screen.key}`;
+            cy.wait(500);
+            cy.screenshot(filename, { overwrite: true, capture: 'viewport' });
           });
         });
       });

@@ -1,18 +1,14 @@
-import { LanguageCode } from "../../../../config";
+import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 
-interface ProFeaturesProps {
-  language: LanguageCode;
-}
-
-function ProFeatures({ language }: ProFeaturesProps) {
+function Features({ language }: ScreenComponentProps) {
   return (
     <div className="features">
       <div className="features-title">
-        {translations[language].proFeatures.title}
+        {translations[language].features.title}
       </div>
       <div className="features-list">
-        {translations[language].proFeatures.features.map((feature) => (
+        {translations[language].features.features.map((feature) => (
           <div className="feature" key={feature.title}>
             <div className="feature-icon">
               <i className={`fa fa-${feature.icon}`} />
@@ -28,4 +24,4 @@ function ProFeatures({ language }: ProFeaturesProps) {
   );
 }
 
-export default ProFeatures;
+export default Features;

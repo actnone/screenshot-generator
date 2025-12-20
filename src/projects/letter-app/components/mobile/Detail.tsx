@@ -1,10 +1,6 @@
-import { LanguageCode } from "../../../../config";
+import { ScreenComponentProps } from "../../../../config";
 
-interface DetailProps {
-  language: LanguageCode;
-}
-
-function Detail({ language }: DetailProps) {
+function Detail({ language }: ScreenComponentProps) {
   return (
     <div className="detail">
       <img

@@ -1,13 +1,25 @@
 import { useParams } from "react-router-dom";
-import projects from "../config";
+import projects, {
+  DeviceClass,
+  DEVICE_CLASS_DEFAULTS,
+  getOutputSize,
+} from "../config";
 
 function DevicePage() {
-  const { projectKey, deviceKey } = useParams();
+  const { projectKey, deviceClass } = useParams();
 
   const project = projects.find((p) => p.key === projectKey);
-  const device = project?.devices.find((d) => d.key === deviceKey);
+  const screens = project?.screens[deviceClass as DeviceClass];
 
-  if (!project || !device) {
+  if (!project || !screens || !deviceClass) {
+    return null;
+  }
+
+  // Use the default output size for this device class
+  const defaultSizeKey = DEVICE_CLASS_DEFAULTS[deviceClass as DeviceClass];
+  const outputSize = getOutputSize(defaultSizeKey);
+
+  if (!outputSize) {
     return null;
   }
 
@@ -17,12 +29,15 @@ function DevicePage() {
         <div key={language}>
           <h2>{language}</h2>
           <div className="language">
-            {device.screens.map((screen) => (
+            {screens.map((screen) => (
               <iframe
                 key={screen.key}
-                style={{ width: device.width / 2, height: device.height / 2 }}
-                title={`${projectKey}_${deviceKey}_${screen.key}_${language}`}
-                src={`/screens/${projectKey}/${deviceKey}/${screen.key}/${language}`}
+                style={{
+                  width: outputSize.width / 2,
+                  height: outputSize.height / 2,
+                }}
+                title={`${projectKey}_${deviceClass}_${screen.key}_${language}`}
+                src={`/screens/${projectKey}/${deviceClass}/${screen.key}/${language}/${defaultSizeKey}`}
               />
             ))}
           </div>

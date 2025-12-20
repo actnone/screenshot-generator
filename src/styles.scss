@@ -82,13 +82,57 @@ body {
 
 .overview-device {
   h2 {
-    margin: 0 0 15px 0;
+    margin: 0;
     font-size: 24px;
     font-weight: 400;
     text-transform: capitalize;
 
     .dark & {
       color: #e0e0e0;
+    }
+  }
+}
+
+.overview-device-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+
+  select {
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    min-width: 200px;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+
+    &:hover {
+      border-color: #999;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #0080FC;
+      box-shadow: 0 0 0 2px rgba(0, 128, 252, 0.2);
+    }
+
+    .dark & {
+      background-color: #2d2d44;
+      border-color: #444;
+      color: #e0e0e0;
+
+      &:hover {
+        border-color: #666;
+      }
+
+      &:focus {
+        border-color: #0080FC;
+      }
     }
   }
 }
@@ -169,7 +213,7 @@ iframe {
   justify-content: center;
 }
 
-.iphone67 {
+.mobile {
   .teaser {
     display: flex;
     font-size: 50px;
@@ -279,7 +323,7 @@ iframe {
   }
 }
 
-.ipad129 {
+.tablet {
   .teaser {
     font-size: 50px;
     position: absolute;
@@ -390,7 +434,7 @@ iframe {
   }
 }
 
-.mac {
+.desktop {
   .teaser {
     font-size: 50px;
     width: 1000px;

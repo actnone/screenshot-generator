@@ -1,29 +1,42 @@
-import projects, { LanguageCode } from "../config";
+import projects, { DeviceClass, LanguageCode, getOutputSize } from "../config";
 
 interface ScreenProps {
   projectKey: string;
-  deviceKey: string;
+  deviceClass: DeviceClass;
   screenKey: string;
   language: LanguageCode;
+  outputSizeKey: string;
 }
 
-function Screen({ projectKey, deviceKey, screenKey, language }: ScreenProps) {
+function Screen({
+  projectKey,
+  deviceClass,
+  screenKey,
+  language,
+  outputSizeKey,
+}: ScreenProps) {
   const project = projects.find((p) => p.key === projectKey);
-  const device = project?.devices.find((d) => d.key === deviceKey);
-  const screen = device?.screens.find((d) => d.key === screenKey);
+  const screens = project?.screens[deviceClass];
+  const screen = screens?.find((s) => s.key === screenKey);
+  const outputSize = getOutputSize(outputSizeKey);
 
-  if (!project || !device || !screen) {
+  if (!project || !screen || !outputSize) {
     return null;
   }
 
   const ScreenComponent = screen.component;
+  const { width, height } = outputSize;
 
   return (
     <div
-      className={`screen ${device.key}`}
-      style={{ width: device.width / 2, height: device.height / 2 }}
+      className={`screen ${deviceClass}`}
+      style={{ width: width / 2, height: height / 2 }}
     >
-      {ScreenComponent ? <ScreenComponent language={language} /> : screenKey}
+      {ScreenComponent ? (
+        <ScreenComponent language={language} width={width} height={height} />
+      ) : (
+        screenKey
+      )}
     </div>
   );
 }

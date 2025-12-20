@@ -5,9 +5,10 @@ import ScreenPage from "./ScreenPage";
 vi.mock("react-router-dom", () => ({
   useParams: () => ({
     projectKey: "letter-app",
-    deviceKey: "iphone67",
+    deviceClass: "mobile",
     screenKey: "overview",
     language: "en-US",
+    outputSizeKey: "iphone69-portrait",
   }),
 }));
 

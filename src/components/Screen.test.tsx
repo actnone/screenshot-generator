@@ -5,9 +5,10 @@ it("should render", () => {
   render(
     <Screen
       projectKey="letter-app"
-      deviceKey="iphone67"
+      deviceClass="mobile"
       screenKey="overview"
       language="en-US"
+      outputSizeKey="iphone69-portrait"
     />
   );
 });

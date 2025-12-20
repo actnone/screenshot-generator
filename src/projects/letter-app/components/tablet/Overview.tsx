@@ -1,11 +1,7 @@
-import { LanguageCode } from "../../../../config";
+import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 
-interface OverviewProps {
-  language: LanguageCode;
-}
-
-function Overview({ language }: OverviewProps) {
+function Overview({ language }: ScreenComponentProps) {
   return (
     <div className="overview">
       <div className="teaser">{translations[language].overview}</div>
