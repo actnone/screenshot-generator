@@ -3,14 +3,15 @@ import Screen from "../components/Screen";
 import { LanguageCode } from "../config";
 
 function ScreenPage() {
-  const { deviceKey, screenKey, language } = useParams();
+  const { projectKey, deviceKey, screenKey, language } = useParams();
 
-  if (!deviceKey || !screenKey || !language) {
+  if (!projectKey || !deviceKey || !screenKey || !language) {
     return null;
   }
 
   return (
     <Screen
+      projectKey={projectKey}
       deviceKey={deviceKey}
       screenKey={screenKey}
       language={language as LanguageCode}

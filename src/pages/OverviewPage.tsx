@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import config, { ColorScheme, LanguageCode, colorSchemes } from "../config";
+import projects, { ColorScheme, LanguageCode, colorSchemes } from "../config";
 import Screen from "../components/Screen";
 
 const SCALE_OPTIONS = [0.25, 0.5, 0.75, 1.0];
@@ -19,13 +19,28 @@ function OverviewPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const systemColorScheme = useMemo(() => getSystemColorScheme(), []);
 
+  const projectParam = searchParams.get("project");
   const scaleParam = searchParams.get("scale");
   const languageParam = searchParams.get("language");
   const colorSchemeParam = searchParams.get("colorScheme");
 
+  // Find the selected project, default to first project
+  const project = projects.find((p) => p.key === projectParam) || projects[0];
+
   const scale = scaleParam ? parseFloat(scaleParam) : DEFAULT_SCALE;
-  const language = (languageParam as LanguageCode) || config.languages[0];
+  const language = (languageParam as LanguageCode) || project.languages[0];
   const colorScheme = (colorSchemeParam as ColorScheme) || systemColorScheme;
+
+  const handleProjectChange = (newProject: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("project", newProject);
+    // Reset language when switching projects
+    const newProjectConfig = projects.find((p) => p.key === newProject);
+    if (newProjectConfig && !newProjectConfig.languages.includes(language)) {
+      params.set("language", newProjectConfig.languages[0]);
+    }
+    setSearchParams(params);
+  };
 
   const handleScaleChange = (newScale: string) => {
     const params = new URLSearchParams(searchParams);
@@ -49,6 +64,22 @@ function OverviewPage() {
     <div className={`overview-page ${colorScheme}`}>
       <div className="overview-controls">
         <label>
+          Project:
+          <select
+            value={project.key}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleProjectChange(e.target.value)
+            }
+          >
+            {projects.map((p) => (
+              <option key={p.key} value={p.key}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
           Language:
           <select
             value={language}
@@ -56,7 +87,7 @@ function OverviewPage() {
               handleLanguageChange(e.target.value)
             }
           >
-            {config.languages.map((lang) => (
+            {project.languages.map((lang) => (
               <option key={lang} value={lang}>
                 {lang}
               </option>
@@ -98,7 +129,7 @@ function OverviewPage() {
       </div>
 
       <div className="overview-grid">
-        {config.devices.map((device) => (
+        {project.devices.map((device) => (
           <div key={device.key} className="overview-device">
             <h2>{device.key}</h2>
             <div className="overview-screens">
@@ -119,6 +150,7 @@ function OverviewPage() {
                     }}
                   >
                     <Screen
+                      projectKey={project.key}
                       deviceKey={device.key}
                       screenKey={screen.key}
                       language={language}

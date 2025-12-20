@@ -1,4 +1,4 @@
-import { LanguageCode } from '../../config';
+import { LanguageCode } from "../../../../config";
 
 interface DetailProps {
   language: LanguageCode;

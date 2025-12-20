@@ -1,16 +1,18 @@
-import config, { LanguageCode } from "../config";
+import projects, { LanguageCode } from "../config";
 
 interface ScreenProps {
+  projectKey: string;
   deviceKey: string;
   screenKey: string;
   language: LanguageCode;
 }
 
-function Screen({ deviceKey, screenKey, language }: ScreenProps) {
-  const device = config.devices.find((d) => d.key === deviceKey);
+function Screen({ projectKey, deviceKey, screenKey, language }: ScreenProps) {
+  const project = projects.find((p) => p.key === projectKey);
+  const device = project?.devices.find((d) => d.key === deviceKey);
   const screen = device?.screens.find((d) => d.key === screenKey);
 
-  if (!device || !screen) {
+  if (!project || !device || !screen) {
     return null;
   }
 

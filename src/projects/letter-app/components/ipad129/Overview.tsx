@@ -1,5 +1,5 @@
-import { LanguageCode } from '../../config';
-import translations from '../../translations';
+import { LanguageCode } from "../../../../config";
+import translations from "../../translations";
 
 interface OverviewProps {
   language: LanguageCode;
@@ -12,9 +12,10 @@ function Overview({ language }: OverviewProps) {
       <img
         className="screenshot"
         alt="screenshot"
-        src={`/raw/${language}/iPhone 17 Pro-01_overview.png`}
+        src={`/raw/${language}/iPad Air 11-inch (M3)-01_overview.png`}
       />
-      <img className="mock" alt="iphone67" src="/iphone67.png" />
+      <img className="mock" alt="ipad129" src="/ipad129.png" />
+      <div className="border" />
     </div>
   );
 }

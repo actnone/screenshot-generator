@@ -1,18 +1,19 @@
 import { useParams } from "react-router-dom";
-import config from "../config";
+import projects from "../config";
 
 function DevicePage() {
-  const { deviceKey } = useParams();
+  const { projectKey, deviceKey } = useParams();
 
-  const device = config.devices.find((d) => d.key === deviceKey);
+  const project = projects.find((p) => p.key === projectKey);
+  const device = project?.devices.find((d) => d.key === deviceKey);
 
-  if (!device) {
+  if (!project || !device) {
     return null;
   }
 
   return (
     <div className="device">
-      {config.languages.map((language) => (
+      {project.languages.map((language) => (
         <div key={language}>
           <h2>{language}</h2>
           <div className="language">
@@ -20,8 +21,8 @@ function DevicePage() {
               <iframe
                 key={screen.key}
                 style={{ width: device.width / 2, height: device.height / 2 }}
-                title={`${deviceKey}_${screen.key}_${language}`}
-                src={`/screens/${deviceKey}/${screen.key}/${language}`}
+                title={`${projectKey}_${deviceKey}_${screen.key}_${language}`}
+                src={`/screens/${projectKey}/${deviceKey}/${screen.key}/${language}`}
               />
             ))}
           </div>

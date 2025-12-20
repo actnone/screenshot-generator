@@ -1,5 +1,5 @@
-import { LanguageCode } from '../../config';
-import translations from '../../translations';
+import { LanguageCode } from "../../../../config";
+import translations from "../../translations";
 
 interface EditProps {
   language: LanguageCode;
@@ -12,9 +12,9 @@ function Edit({ language }: EditProps) {
       <img
         className="screenshot"
         alt="screenshot"
-        src={`/raw/${language}/iPhone 17 Pro-03_edit.png`}
+        src={`/raw/${language}/iPad Air 11-inch (M3)-02_edit.png`}
       />
-      <img className="mock" alt="iphone67" src="/iphone67.png" />
+      <img className="mock" alt="ipad129" src="/ipad129.png" />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { vi } from "vitest";
 import DevicePage from "./DevicePage";
 
 vi.mock("react-router-dom", () => ({
-  useParams: () => ({ deviceKey: "iphone67" }),
+  useParams: () => ({ projectKey: "letter-app", deviceKey: "iphone67" }),
 }));
 
 it("should render", () => {
