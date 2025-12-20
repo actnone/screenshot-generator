@@ -1,0 +1,98 @@
+// =============================================================================
+// Font Definitions
+// =============================================================================
+
+// Ilisarniq - Sans Serif
+// -----------------------------------------------------------------------------
+
+// Light (300)
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+// Regular (400)
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+// Demi (600)
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Demi.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-DemiItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+// Bold (700)
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+// Black (900)
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ilisarniq';
+  src: url('/assets/fonts/ilisarniq/Ilisarniq-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+// Nocturne Serif
+// -----------------------------------------------------------------------------
+
+@font-face {
+  font-family: 'Nocturne Serif';
+  src: url('/assets/fonts/nocturne-serif/NocturneSerif-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+// =============================================================================
+// Font Variables
+// =============================================================================
+
+$font-ilisarniq: 'Ilisarniq', sans-serif;
+$font-nocturne: 'Nocturne Serif', serif;
