@@ -8,6 +8,7 @@ interface DeviceContextValue {
   isDesktop: boolean;
   width: number;
   height: number;
+  aspectRatio: string;
 }
 
 const DeviceContext = createContext<DeviceContextValue | null>(null);
@@ -17,6 +18,19 @@ interface DeviceProviderProps {
   width: number;
   height: number;
   children: ReactNode;
+}
+
+// Helper to compute GCD for simplifying aspect ratio
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
+// Helper to get aspect ratio as string
+function getAspectRatio(width: number, height: number): string {
+  const divisor = gcd(width, height);
+  const w = width / divisor;
+  const h = height / divisor;
+  return `${w}:${h}`;
 }
 
 export function DeviceProvider({
@@ -32,6 +46,7 @@ export function DeviceProvider({
     isDesktop: deviceClass === "desktop",
     width,
     height,
+    aspectRatio: getAspectRatio(width, height),
   };
 
   return (
