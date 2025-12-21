@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
 import letterAppConfig from './projects/letter-app/config';
+import eldrumBlackDustConfig from './projects/eldrum-black-dust/config';
 
 export type LanguageCode = 'en-US' | 'nl-NL' | 'it-IT' | 'es-ES' | 'fr-FR' | 'de-DE' | 'pt-PT';
 
@@ -106,7 +107,7 @@ export function getProjectOutputSizesForClass(
 
 const projects: ProjectConfig[] = [
   letterAppConfig,
-  // Add more projects here
+  eldrumBlackDustConfig,
 ];
 
 export default projects;

@@ -519,3 +519,43 @@ iframe {
     font-size: 30px;
   }
 }
+
+// Eldrum: Black Dust styles
+.eldrum-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1a;
+  overflow: hidden;
+  font-family: 'Nocturne Serif', Georgia, serif;
+}
+
+.eldrum-no-headline {
+  background-color: #000;
+}
+
+.eldrum-split-bg {
+  background: linear-gradient(90deg, #2a1a15 0%, #2a1a15 50%, #1a1a1a 50%, #1a1a1a 100%);
+}
+
+.eldrum-top-bg {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.eldrum-headline {
+  position: relative;
+  z-index: 10;
+  color: white;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  padding-top: 3%;
+  line-height: 1.15;
+}
+
+.eldrum-tablet {
+  .eldrum-headline {
+    padding-top: 2%;
+  }
+}

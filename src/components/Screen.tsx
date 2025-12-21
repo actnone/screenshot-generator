@@ -1,4 +1,5 @@
 import projects, { DeviceClass, LanguageCode, getOutputSize } from "../config";
+import { DeviceProvider } from "../context/DeviceContext";
 
 interface ScreenProps {
   projectKey: string;
@@ -32,11 +33,13 @@ function Screen({
       className={`screen ${deviceClass}`}
       style={{ width: width / 2, height: height / 2 }}
     >
-      {ScreenComponent ? (
-        <ScreenComponent language={language} width={width} height={height} />
-      ) : (
-        screenKey
-      )}
+      <DeviceProvider deviceClass={deviceClass} width={width} height={height}>
+        {ScreenComponent ? (
+          <ScreenComponent language={language} width={width} height={height} />
+        ) : (
+          screenKey
+        )}
+      </DeviceProvider>
     </div>
   );
 }
