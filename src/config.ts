@@ -27,7 +27,7 @@ export const OUTPUT_SIZES: OutputSize[] = [
   { key: 'iphone65-portrait', deviceClass: 'mobile', width: 1284, height: 2778 },
   { key: 'iphone63-portrait', deviceClass: 'mobile', width: 1179, height: 2556 },
   { key: 'iphone55-portrait', deviceClass: 'mobile', width: 1242, height: 2208 },
-  { key: 'android-phone-portrait', deviceClass: 'mobile', width: 1080, height: 1920 },
+  { key: 'android-phone-portrait', deviceClass: 'mobile', width: 1440, height: 2560 },
   // Tablet - Landscape
   { key: 'ipad129-landscape', deviceClass: 'tablet', width: 2732, height: 2048 },
   { key: 'ipad11-landscape', deviceClass: 'tablet', width: 2388, height: 1668 },
