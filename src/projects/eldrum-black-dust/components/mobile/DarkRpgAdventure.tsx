@@ -20,6 +20,7 @@ function DarkRpgAdventure({ language, width }: ScreenComponentProps) {
       <TopBackground
         width={width}
         headline={translations[language].darkRpgAdventure.headline}
+        bottomBorderOffset={-300 * scale}
       />
 
       {/* Phone with app screenshot */}
@@ -35,7 +36,7 @@ function DarkRpgAdventure({ language, width }: ScreenComponentProps) {
       <Image
         src={`${assetPath}/Bey.png`}
         alt="Character"
-        bottom={-100 * scale}
+        top={100 * scale}
         width={920 * scale}
         left={-780 * scale}
         zIndex={5}

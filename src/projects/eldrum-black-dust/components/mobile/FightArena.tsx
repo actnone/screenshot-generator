@@ -20,6 +20,7 @@ function FightArena({ language, width }: ScreenComponentProps) {
       <TopBackground
         width={width}
         headline={translations[language].fightArena.headline}
+        bottomBorderOffset={-150 * scale}
       />
 
       {/* Phone with combat screenshot - positioned left */}

@@ -33,6 +33,12 @@ function SecretEndings({ language, width }: ScreenComponentProps) {
         headline={translations[language].secretEndings.headline}
         zIndex={2}
       />
+      <TopBackground
+        width={width}
+        headline={translations[language].secretEndings.headline}
+        zIndex={6}
+        fillColor="transparent"
+      />
 
       {/* Phone with app screenshot - positioned right */}
       <Phone

@@ -19,6 +19,7 @@ function DesertCity({ language, width }: ScreenComponentProps) {
       <TopBackground
         width={width}
         headline={translations[language].desertCity.headline}
+        bottomBorderOffset={-100 * scale}
       />
       <TopBackground
         width={width}

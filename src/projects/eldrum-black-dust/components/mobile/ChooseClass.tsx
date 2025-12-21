@@ -12,6 +12,7 @@ function ChooseClass({ language, width }: ScreenComponentProps) {
     <Background
       className="eldrum-screen eldrum-split-bg"
       src={`${assetPath}/6.5 inch Screen 3 bg.png`}
+      top={100}
     >
       <TopBackground
         width={width}

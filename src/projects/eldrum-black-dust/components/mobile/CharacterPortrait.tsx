@@ -21,11 +21,12 @@ function CharacterPortrait({ width }: ScreenComponentProps) {
         width={width}
         zIndex={2}
         textColor="#161617"
+        bottomBorderOffset={-500 * scale}
       />
       <Image
         src={`${assetPath}/Bey.png`}
         alt="Character"
-        bottom={-100 * scale}
+        top={100 * scale}
         width={920 * scale}
         left={-100 * scale}
         zIndex={5}
