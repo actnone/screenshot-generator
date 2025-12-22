@@ -1,14 +1,15 @@
 import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 import TopBackground from "../TopBackground";
-import Phone from "../../../../components/Phone";
+import DeviceFrame from "../../../../components/DeviceFrame";
 import Image from "../../../../components/Image";
 import Background from "../../../../components/Background";
+import { useScale } from "../../../../hooks/useScale";
 
 // FIGHT IN THE ARENA
 // Layout: Phone screenshot on left, Fighter with hammer on right
-function FightArena({ language, width }: ScreenComponentProps) {
-  const scale = width / 1284; // Base scale on 6.5" width
+function FightArena({ language }: ScreenComponentProps) {
+  const scale = useScale();
   const assetPath = "/src/projects/eldrum-black-dust/assets";
 
   return (
@@ -18,17 +19,18 @@ function FightArena({ language, width }: ScreenComponentProps) {
       top={100 * scale}
     >
       <TopBackground
-        width={width}
         headline={translations[language].fightArena.headline}
         bottomBorderOffset={-150 * scale}
       />
 
-      {/* Phone with combat screenshot - positioned left */}
-      <Phone
-        screenshot={`${assetPath}/simulator_screenshot_A756B468-F391-478F-9DEE-1AADC2AA3FD4.png`}
-        width={550 * scale}
+      {/* Device frame with combat screenshot - positioned left */}
+      <DeviceFrame
+        screenshot={{
+          mobile: `${assetPath}/simulator_screenshot_A756B468-F391-478F-9DEE-1AADC2AA3FD4.png`,
+          tablet: `${assetPath}/Screenshot Arena Tablet.png`,
+        }}
         horizontalAlign="center"
-        top={390 * scale}
+        top={350 * scale}
         zIndex={1}
       />
 

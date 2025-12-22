@@ -10,6 +10,16 @@ import CharacterPortrait from "./components/mobile/CharacterPortrait";
 import Underworld from "./components/mobile/Underworld";
 import ChooseClass from "./components/mobile/ChooseClass";
 
+// Tablet screens
+import TabletCharacterPortrait from "./components/tablet/CharacterPortrait";
+import TabletDarkRpgAdventure from "./components/tablet/DarkRpgAdventure";
+import TabletChooseClass from "./components/tablet/ChooseClass";
+import TabletFightArena from "./components/tablet/FightArena";
+import TabletSecretEndings from "./components/tablet/SecretEndings";
+import TabletExploreDeadlands from "./components/tablet/ExploreDeadlands";
+import TabletDesertCity from "./components/tablet/DesertCity";
+import TabletUnderworld from "./components/tablet/Underworld";
+
 const config: ProjectConfig = {
   key: "eldrum-black-dust",
   name: "Eldrum: Black Dust",
@@ -20,6 +30,8 @@ const config: ProjectConfig = {
     "iphone63-portrait",
     "iphone55-portrait",
     "android-phone-portrait",
+    "ipad129-portrait",
+    "ipad11-portrait",
   ],
   screens: {
     mobile: [
@@ -31,6 +43,16 @@ const config: ProjectConfig = {
       { key: "explore-deadlands", component: ExploreDeadlands },
       { key: "desert-city", component: DesertCity },
       { key: "underworld", component: Underworld },
+    ],
+    tablet: [
+      { key: "character-portrait", component: TabletCharacterPortrait },
+      { key: "dark-rpg-adventure", component: TabletDarkRpgAdventure },
+      { key: "choose-class", component: TabletChooseClass },
+      { key: "fight-arena", component: TabletFightArena },
+      { key: "secret-endings", component: TabletSecretEndings },
+      { key: "explore-deadlands", component: TabletExploreDeadlands },
+      { key: "desert-city", component: TabletDesertCity },
+      { key: "underworld", component: TabletUnderworld },
     ],
   },
 };

@@ -5,7 +5,7 @@ import Background from "../../../../components/Background";
 
 // CHOOSE YOUR CLASS
 // Layout: Two characters side by side - Archer on left, another class on right
-function ChooseClass({ language, width }: ScreenComponentProps) {
+function ChooseClass({ language }: ScreenComponentProps) {
   const assetPath = "/src/projects/eldrum-black-dust/assets";
 
   return (
@@ -14,10 +14,7 @@ function ChooseClass({ language, width }: ScreenComponentProps) {
       src={`${assetPath}/6.5 inch Screen 3 bg.png`}
       top={100}
     >
-      <TopBackground
-        width={width}
-        headline={translations[language].chooseClass.headline}
-      />
+      <TopBackground headline={translations[language].chooseClass.headline} />
     </Background>
   );
 }

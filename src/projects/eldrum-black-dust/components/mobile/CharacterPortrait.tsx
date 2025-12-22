@@ -2,12 +2,13 @@ import Background from "../../../../components/Background";
 import Image from "../../../../components/Image";
 import TopBackground from "../TopBackground";
 import { ScreenComponentProps } from "../../../../config";
+import { useScale } from "../../../../hooks/useScale";
 
 // Character portrait (no headline)
 // Layout: Full character portrait - EndingUnseenCrimeLord
-function CharacterPortrait({ width }: ScreenComponentProps) {
+function CharacterPortrait({}: ScreenComponentProps) {
   const assetPath = "/src/projects/eldrum-black-dust/assets";
-  const scale = width / 1284; // Base scale on 6.5" width
+  const scale = useScale();
 
   return (
     <Background
@@ -18,7 +19,6 @@ function CharacterPortrait({ width }: ScreenComponentProps) {
     >
       <TopBackground
         headline="dsajkdja sdjask djjaksd kas kd"
-        width={width}
         zIndex={2}
         textColor="#161617"
         bottomBorderOffset={-500 * scale}

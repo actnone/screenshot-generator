@@ -3,11 +3,12 @@ import translations from "../../translations";
 import TopBackground from "../TopBackground";
 import Image from "../../../../components/Image";
 import Background from "../../../../components/Background";
+import { useScale } from "../../../../hooks/useScale";
 
 // EXPLORE THE DEADLANDS
 // Layout: White-robed woman with spear in center, map background on left
-function ExploreDeadlands({ language, width }: ScreenComponentProps) {
-  const scale = width / 1284; // Base scale on 6.5" width
+function ExploreDeadlands({ language }: ScreenComponentProps) {
+  const scale = useScale();
   const assetPath = "/src/projects/eldrum-black-dust/assets";
 
   return (
@@ -18,13 +19,11 @@ function ExploreDeadlands({ language, width }: ScreenComponentProps) {
       objectPosition="center center"
     >
       <TopBackground
-        width={width}
         headline={translations[language].exploreDeadlands.headline}
         zIndex={2}
         bottomBorderOffset={400 * scale}
       />
       <TopBackground
-        width={width}
         headline={translations[language].exploreDeadlands.headline}
         zIndex={6}
         fillColor="transparent"
@@ -36,7 +35,7 @@ function ExploreDeadlands({ language, width }: ScreenComponentProps) {
         style={{ transform: "scale(-1, 1)" }}
         alt="Character"
         width={600 * scale}
-        right={-200 * scale}
+        right={-100 * scale}
         top={100}
         zIndex={5}
       />
