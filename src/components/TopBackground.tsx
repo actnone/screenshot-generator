@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
-import { useDevice } from "../../../context/DeviceContext";
-import { useScale } from "../../../hooks/useScale";
+import { useDevice } from "../context/DeviceContext";
+import { useScale } from "../hooks/useScale";
 
 interface TopBackgroundProps {
   headline?: string;

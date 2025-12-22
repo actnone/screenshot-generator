@@ -1,6 +1,6 @@
 import { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
-import TopBackground from "../TopBackground";
+import TopBackground from "../../../../components/TopBackground";
 import DeviceFrame from "../../../../components/DeviceFrame";
 import Background from "../../../../components/Background";
 import Image from "../../../../components/Image";
