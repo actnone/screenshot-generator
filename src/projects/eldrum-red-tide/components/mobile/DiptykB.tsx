@@ -41,11 +41,11 @@ export function DiptykB({ language }: ScreenComponentProps) {
 
       {deviceClass.isMobile && (
         <Image
-          src={`${assetPath}/c - merc a.png`}
+          src={`${assetPath}/c - harvester.png`}
           alt="Character"
-          width={1100 * scale}
-          left={-850 * scale}
-          top={170 * scale}
+          width={1500 * scale}
+          left={-860 * scale}
+          top={-150 * scale}
           zIndex={5}
         />
       )}

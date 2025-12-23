@@ -24,19 +24,19 @@ export function DiptykA({ language }: ScreenComponentProps) {
         textColor="transparent"
       />
       <Image
-        src={`${assetPath}/c - merc b.png`}
+        src={`${assetPath}/c - drummer.png`}
         alt="Character"
-        width={700 * scale}
-        left={-250 * scale}
-        top={280 * scale}
+        width={1600 * scale}
+        left={-650 * scale}
+        top={-200 * scale}
         zIndex={4}
       />
       <Image
-        src={`${assetPath}/c - merc a.png`}
+        src={`${assetPath}/c - harvester.png`}
         alt="Character"
-        width={1100 * scale}
+        width={1500 * scale}
         left={-150 * scale}
-        top={170 * scale}
+        top={-150 * scale}
         zIndex={5}
       />
     </Background>
