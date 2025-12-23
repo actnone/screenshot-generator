@@ -23,7 +23,7 @@ import TabletUnderworld from "./components/tablet/Underworld";
 const config: ProjectConfig = {
   key: "eldrum-black-dust",
   name: "Eldrum: Black Dust",
-  languages: ["en-US"],
+  languages: ["en"],
   outputSizes: [
     "iphone69-portrait",
     "iphone65-portrait",

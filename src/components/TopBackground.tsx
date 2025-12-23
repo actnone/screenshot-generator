@@ -18,8 +18,8 @@ function TopBackground({
   bottomBorderOffset = 0,
 }: TopBackgroundProps) {
   const scale = useScale();
-  const { isMobile, height, aspectRatio } = useDevice();
-  const isSmallScreen = isMobile && (height < 2300 || aspectRatio === "9:16");
+  const { isMobile, width } = useDevice();
+  const borderBottomHeight = 72;
 
   // Strip newlines from headlines for non-mobile devices (tablet/desktop)
   const displayHeadline =
@@ -41,29 +41,33 @@ function TopBackground({
     backgroundColor: fillColor,
     flex: 1,
     width: "100%",
-    padding: isSmallScreen
-      ? `${60 * scale}px ${40 * scale}px ${20 * scale}px`
-      : `${80 * scale}px ${40 * scale}px ${20 * scale}px`,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: borderBottomHeight / 2,
+    paddingTop: borderBottomHeight / 2,
+    minHeight: 200 * scale,
   };
 
   const headlineStyle: CSSProperties = {
     fontFamily: "'Nocturne Serif', Georgia, serif",
-    fontSize: isSmallScreen ? 50 : 55,
-    fontWeight: 400,
+    textTransform: "uppercase",
+    fontSize: width > 1750 ? 55 : 50,
     color: textColor,
     textAlign: "center",
     letterSpacing: "0.05em",
     lineHeight: 1.15,
-    whiteSpace: "pre-line",
     zIndex: 2,
-    padding: isSmallScreen ? `0px ${20 * scale}px` : `0px ${20 * scale}px`,
+    margin: 0,
+    padding: `0px ${30 * scale}px 0px`,
+    whiteSpace: "pre-line",
   };
 
-  const svgScale = scale * 0.8; // Scale down the SVG
+  const svgScale = scale * 0.8;
   const svgContainerStyle: CSSProperties = {
+    marginTop: -borderBottomHeight,
     pointerEvents: "none",
     flexGrow: 0,
-    marginTop: -1,
     marginLeft: bottomBorderOffset,
     transform: `scaleX(${svgScale})`,
     transformOrigin: "center top",
@@ -72,14 +76,14 @@ function TopBackground({
   return (
     <div style={containerStyle} className="eldrum-top-bg">
       <div style={innerContainerStyle}>
-        {displayHeadline && <div style={headlineStyle}>{displayHeadline}</div>}
+        {displayHeadline && <p style={headlineStyle}>{displayHeadline}</p>}
       </div>
       {fillColor !== "transparent" && (
         <div style={svgContainerStyle}>
           <svg
             width="2623px"
-            height="72px"
-            viewBox="0 0 2623 72"
+            height={borderBottomHeight}
+            viewBox={`0 0 2623 ${borderBottomHeight}`}
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
           >

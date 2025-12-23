@@ -1,7 +1,8 @@
 import { ComponentType } from 'react';
 import eldrumBlackDustConfig from './projects/eldrum-black-dust/config';
+import eldrumUntoldConfig from './projects/eldrum-untold/config';
 
-export type LanguageCode = 'en-US' | 'nl-NL' | 'it-IT' | 'es-ES' | 'fr-FR' | 'de-DE' | 'pt-PT';
+export type LanguageCode = string;
 
 export type ColorScheme = 'light' | 'dark';
 
@@ -106,6 +107,7 @@ export function getProjectOutputSizesForClass(
 
 const projects: ProjectConfig[] = [
   eldrumBlackDustConfig,
+  eldrumUntoldConfig,
 ];
 
 export default projects;

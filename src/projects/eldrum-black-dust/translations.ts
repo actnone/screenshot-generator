@@ -14,7 +14,7 @@ export interface Translation {
 }
 
 const translations: Record<string, Translation> = {
-  "en-US": {
+  "en": {
     exploreDeadlands: {
       headline: "EXPLORE THE\nDEADLANDS",
     },
@@ -34,10 +34,10 @@ const translations: Record<string, Translation> = {
       headline: "",
     },
     underworld: {
-      headline: "...FROM THE\nUNDERWORLD",
+      headline: "...FROM THE\n UNDERWORLD",
     },
     chooseClass: {
-      headline: "CHOOSE YOUR\nCLASS",
+      headline: "CHOOSE YOUR\n CLASS",
     },
   },
 };
