@@ -105,7 +105,7 @@ function DeviceFrame({
   verticalAlign,
   rotation,
   zIndex,
-  frameColor = "#1a1a1a",
+  frameColor = "#000",
   style: customStyle,
   className,
 }: DeviceFrameProps) {

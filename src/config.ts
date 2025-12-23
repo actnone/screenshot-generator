@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import eldrumBlackDustConfig from './projects/eldrum-black-dust/config';
 import eldrumUntoldConfig from './projects/eldrum-untold/config';
+import eldrumRedTideConfig from './projects/eldrum-red-tide/config';
 
 export type LanguageCode = string;
 
@@ -108,6 +109,7 @@ export function getProjectOutputSizesForClass(
 const projects: ProjectConfig[] = [
   eldrumBlackDustConfig,
   eldrumUntoldConfig,
+  eldrumRedTideConfig,
 ];
 
 export default projects;
