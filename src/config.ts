@@ -33,11 +33,11 @@ export const OUTPUT_SIZES: OutputSize[] = [
   // Tablet - Landscape
   { key: 'ipad129-landscape', deviceClass: 'tablet', width: 2732, height: 2048 },
   { key: 'ipad11-landscape', deviceClass: 'tablet', width: 2388, height: 1668 },
-  { key: 'android-tablet7-landscape', deviceClass: 'tablet', width: 1920, height: 1200 },
-  { key: 'android-tablet10-landscape', deviceClass: 'tablet', width: 2560, height: 1600 },
+  { key: 'android-tablet-landscape', deviceClass: 'tablet', width: 3840, height: 2160 }, // 16:9 - Google Play 7" & 10"
   // Tablet - Portrait
   { key: 'ipad129-portrait', deviceClass: 'tablet', width: 2048, height: 2732 },
   { key: 'ipad11-portrait', deviceClass: 'tablet', width: 1668, height: 2388 },
+  { key: 'android-tablet-portrait', deviceClass: 'tablet', width: 2160, height: 3840 }, // 9:16 - Google Play 7" & 10"
   // Desktop
   { key: 'mac-landscape', deviceClass: 'desktop', width: 2880, height: 1800 },
 ];
