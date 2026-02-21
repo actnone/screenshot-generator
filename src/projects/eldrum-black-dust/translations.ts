@@ -15,11 +15,11 @@ export interface Translation {
 
 const translations: Record<string, Translation> = {
   "en": {
+    darkRpgAdventure: {
+      headline: "Make your\nchoices",
+    },
     exploreDeadlands: {
       headline: "EXPLORE THE\nDEADLANDS",
-    },
-    darkRpgAdventure: {
-      headline: "A DARK RPG\nADVENTURE",
     },
     secretEndings: {
       headline: "DISCOVER\nSECRET ENDINGS",

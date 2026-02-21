@@ -269,6 +269,7 @@ function OverviewPage() {
                         screenKey={screen.key}
                         language={language}
                         outputSizeKey={selectedSizeKey}
+                        store={store}
                       />
                     </div>
                   </div>

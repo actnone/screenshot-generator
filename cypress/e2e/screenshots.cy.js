@@ -68,7 +68,7 @@ describe('screenshots', () => {
 
         screens.forEach((screen, index) => {
           project.languages.forEach((language) => {
-            const url = `${BASE_URL}/screens/${project.key}/${deviceClass}/${screen.key}/${language}/${outputSizeKey}`;
+            const url = `${BASE_URL}/screens/${project.key}/${deviceClass}/${screen.key}/${language}/${outputSizeKey}?store=${store}`;
             cy.visit(url);
 
             const filename = `${project.key}/${store}/${language}/${outputSizeKey}/${index + 1}_${screen.key}`;

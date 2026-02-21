@@ -1,4 +1,10 @@
-import projects, { DeviceClass, LanguageCode, getOutputSize } from "../config";
+import projects, {
+  DeviceClass,
+  LanguageCode,
+  Store,
+  getOutputSize,
+  getProjectScreensForStore,
+} from "../config";
 import { DeviceProvider } from "../context/DeviceContext";
 
 interface ScreenProps {
@@ -7,6 +13,7 @@ interface ScreenProps {
   screenKey: string;
   language: LanguageCode;
   outputSizeKey: string;
+  store?: Store;
 }
 
 function Screen({
@@ -15,9 +22,14 @@ function Screen({
   screenKey,
   language,
   outputSizeKey,
+  store,
 }: ScreenProps) {
   const project = projects.find((p) => p.key === projectKey);
-  const screens = project?.screens[deviceClass];
+  const screens = project
+    ? store
+      ? getProjectScreensForStore(project, store, deviceClass)
+      : project.screens[deviceClass]
+    : undefined;
   const screen = screens?.find((s) => s.key === screenKey);
   const outputSize = getOutputSize(outputSizeKey);
 

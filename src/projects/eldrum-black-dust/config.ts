@@ -19,6 +19,15 @@ import TabletSecretEndings from "./components/tablet/SecretEndings";
 import TabletExploreDeadlands from "./components/tablet/ExploreDeadlands";
 import TabletDesertCity from "./components/tablet/DesertCity";
 import TabletUnderworld from "./components/tablet/Underworld";
+import {
+  AppStoreDarkRpgAdventure,
+  AppStoreChooseClass,
+  AppStoreFightArena,
+  AppStoreSecretEndings,
+  AppStoreExploreDeadlands,
+  AppStoreDesertCity,
+  AppStoreUnderworld,
+} from "./components/app-store/MinimalScreens";
 
 const config: ProjectConfig = {
   key: "eldrum-black-dust",
@@ -73,6 +82,28 @@ const config: ProjectConfig = {
       { key: "desert-city", component: TabletDesertCity },
       { key: "underworld", component: TabletUnderworld },
     ],
+  },
+  screensByStore: {
+    appStore: {
+      mobile: [
+        { key: "dark-rpg-adventure", component: AppStoreDarkRpgAdventure },
+        { key: "choose-class", component: AppStoreChooseClass },
+        { key: "fight-arena", component: AppStoreFightArena },
+        { key: "secret-endings", component: AppStoreSecretEndings },
+        { key: "explore-deadlands", component: AppStoreExploreDeadlands },
+        { key: "desert-city", component: AppStoreDesertCity },
+        { key: "underworld", component: AppStoreUnderworld },
+      ],
+      tablet: [
+        { key: "dark-rpg-adventure", component: AppStoreDarkRpgAdventure },
+        { key: "choose-class", component: AppStoreChooseClass },
+        { key: "fight-arena", component: AppStoreFightArena },
+        { key: "secret-endings", component: AppStoreSecretEndings },
+        { key: "explore-deadlands", component: AppStoreExploreDeadlands },
+        { key: "desert-city", component: AppStoreDesertCity },
+        { key: "underworld", component: AppStoreUnderworld },
+      ],
+    },
   },
 };
 
