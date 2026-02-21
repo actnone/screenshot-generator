@@ -20,7 +20,13 @@
     "generate": "yarn generate:app-store",
     "generate:app-store": "concurrently \"yarn start\" \"cypress run --env store=appStore\"",
     "generate:google-play": "concurrently \"yarn start\" \"cypress run --env store=googlePlay\"",
-    "generate:all": "yarn generate:app-store && yarn generate:google-play"
+    "generate:all": "yarn generate:app-store && yarn generate:google-play",
+    "generate:app-store:black-dust": "concurrently \"yarn start\" \"cypress run --env store=appStore,project=eldrum-black-dust\"",
+    "generate:app-store:untold": "concurrently \"yarn start\" \"cypress run --env store=appStore,project=eldrum-untold\"",
+    "generate:app-store:red-tide": "concurrently \"yarn start\" \"cypress run --env store=appStore,project=eldrum-red-tide\"",
+    "generate:google-play:black-dust": "concurrently \"yarn start\" \"cypress run --env store=googlePlay,project=eldrum-black-dust\"",
+    "generate:google-play:untold": "concurrently \"yarn start\" \"cypress run --env store=googlePlay,project=eldrum-untold\"",
+    "generate:google-play:red-tide": "concurrently \"yarn start\" \"cypress run --env store=googlePlay,project=eldrum-red-tide\""
   },
   "browserslist": {
     "production": [

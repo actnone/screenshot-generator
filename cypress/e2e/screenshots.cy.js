@@ -18,12 +18,38 @@ function getStoreOrThrow() {
   return store;
 }
 
+function getProjectsOrThrow() {
+  const projectFilter = Cypress.env('project');
+  if (typeof projectFilter !== 'string' || projectFilter.trim() === '') {
+    return projects;
+  }
+
+  const requestedProjectKeys = projectFilter
+    .split(/[|,]/)
+    .map((key) => key.trim())
+    .filter(Boolean);
+  const availableProjectKeys = projects.map((project) => project.key);
+  const invalidProjectKeys = requestedProjectKeys.filter(
+    (key) => !availableProjectKeys.includes(key)
+  );
+
+  if (invalidProjectKeys.length > 0) {
+    throw new Error(
+      `Invalid Cypress env "project": ${invalidProjectKeys.join(', ')}. ` +
+      `Use one of: ${availableProjectKeys.join(', ')}`
+    );
+  }
+
+  return projects.filter((project) => requestedProjectKeys.includes(project.key));
+}
+
 describe('screenshots', () => {
   it('take screenshots', () => {
     cy.visit('http://localhost:3000');
     const store = getStoreOrThrow();
+    const projectsToGenerate = getProjectsOrThrow();
 
-    projects.forEach((project) => {
+    projectsToGenerate.forEach((project) => {
       const outputSizeKeys = getProjectOutputSizeKeysForStore(project, store);
       outputSizeKeys.forEach((outputSizeKey) => {
         const outputSize = getOutputSize(outputSizeKey);

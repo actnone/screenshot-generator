@@ -41,6 +41,23 @@ Generate both stores:
 
 The default `yarn generate` command now maps to `yarn generate:app-store`.
 
+Generate screenshots for a specific app:
+
+- App Store:
+  - `yarn generate:app-store:black-dust`
+  - `yarn generate:app-store:untold`
+  - `yarn generate:app-store:red-tide`
+- Google Play:
+  - `yarn generate:google-play:black-dust`
+  - `yarn generate:google-play:untold`
+  - `yarn generate:google-play:red-tide`
+
+You can also filter by project key directly via Cypress env:
+
+- `cypress run --env store=appStore,project=eldrum-untold`
+- `cypress run --env store=googlePlay,project=eldrum-red-tide`
+- Multiple projects: `cypress run --env store=appStore,project=eldrum-untold|eldrum-red-tide`
+
 ### Output structure
 
 Screenshots are written under a store-specific path:
