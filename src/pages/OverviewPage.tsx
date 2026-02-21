@@ -5,10 +5,13 @@ import projects, {
   DeviceClass,
   DEVICE_CLASS_DEFAULTS,
   LanguageCode,
+  STORES,
+  Store,
   colorSchemes,
   getOutputSize,
   getProjectDeviceClasses,
   getProjectOutputSizesForClass,
+  getProjectScreensForStore,
 } from "../config";
 import Screen from "../components/Screen";
 
@@ -24,6 +27,26 @@ function getSystemColorScheme(): ColorScheme {
   return "light";
 }
 
+function buildPreviewSizes(
+  project: (typeof projects)[number],
+  store: Store
+): Record<DeviceClass, string> {
+  const initial: Record<DeviceClass, string> = { ...DEVICE_CLASS_DEFAULTS };
+  const storeDeviceClasses = getProjectDeviceClasses(project, store);
+
+  for (const dc of storeDeviceClasses) {
+    const projectSizes = getProjectOutputSizesForClass(project, dc, store);
+    if (
+      projectSizes.length > 0 &&
+      !projectSizes.find((s) => s.key === initial[dc])
+    ) {
+      initial[dc] = projectSizes[0].key;
+    }
+  }
+
+  return initial;
+}
+
 function OverviewPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const systemColorScheme = useMemo(() => getSystemColorScheme(), []);
@@ -32,6 +55,7 @@ function OverviewPage() {
   const scaleParam = searchParams.get("scale");
   const languageParam = searchParams.get("language");
   const colorSchemeParam = searchParams.get("colorScheme");
+  const storeParam = searchParams.get("store");
 
   // Find the selected project, default to first project
   const project = projects.find((p) => p.key === projectParam) || projects[0];
@@ -39,29 +63,19 @@ function OverviewPage() {
   const scale = scaleParam ? parseFloat(scaleParam) : DEFAULT_SCALE;
   const language = (languageParam as LanguageCode) || project.languages[0];
   const colorScheme = (colorSchemeParam as ColorScheme) || systemColorScheme;
+  const store = (STORES.includes(storeParam as Store)
+    ? storeParam
+    : STORES[0]) as Store;
 
   // Get device classes for this project
   const deviceClasses = useMemo(
-    () => getProjectDeviceClasses(project),
-    [project]
+    () => getProjectDeviceClasses(project, store),
+    [project, store]
   );
 
   // Initialize preview sizes with defaults, respecting project's available sizes
   const [previewSizes, setPreviewSizes] = useState<Record<DeviceClass, string>>(
-    () => {
-      const initial: Record<DeviceClass, string> = { ...DEVICE_CLASS_DEFAULTS };
-      // Ensure defaults are valid for this project
-      for (const dc of deviceClasses) {
-        const projectSizes = getProjectOutputSizesForClass(project, dc);
-        if (
-          projectSizes.length > 0 &&
-          !projectSizes.find((s) => s.key === initial[dc])
-        ) {
-          initial[dc] = projectSizes[0].key;
-        }
-      }
-      return initial;
-    }
+    () => buildPreviewSizes(project, store)
   );
 
   const handleProjectChange = (newProject: string) => {
@@ -76,23 +90,7 @@ function OverviewPage() {
 
     // Reset preview sizes for new project
     if (newProjectConfig) {
-      const newDeviceClasses = getProjectDeviceClasses(newProjectConfig);
-      const newPreviewSizes: Record<DeviceClass, string> = {
-        ...DEVICE_CLASS_DEFAULTS,
-      };
-      for (const dc of newDeviceClasses) {
-        const projectSizes = getProjectOutputSizesForClass(
-          newProjectConfig,
-          dc
-        );
-        if (
-          projectSizes.length > 0 &&
-          !projectSizes.find((s) => s.key === newPreviewSizes[dc])
-        ) {
-          newPreviewSizes[dc] = projectSizes[0].key;
-        }
-      }
-      setPreviewSizes(newPreviewSizes);
+      setPreviewSizes(buildPreviewSizes(newProjectConfig, store));
     }
   };
 
@@ -112,6 +110,14 @@ function OverviewPage() {
     const params = new URLSearchParams(searchParams);
     params.set("colorScheme", newColorScheme);
     setSearchParams(params);
+  };
+
+  const handleStoreChange = (newStore: string) => {
+    const nextStore = newStore as Store;
+    const params = new URLSearchParams(searchParams);
+    params.set("store", nextStore);
+    setSearchParams(params);
+    setPreviewSizes(buildPreviewSizes(project, nextStore));
   };
 
   const handlePreviewSizeChange = (
@@ -138,6 +144,22 @@ function OverviewPage() {
             {projects.map((p) => (
               <option key={p.key} value={p.key}>
                 {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Store:
+          <select
+            value={store}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleStoreChange(e.target.value)
+            }
+          >
+            {STORES.map((storeOption) => (
+              <option key={storeOption} value={storeOption}>
+                {storeOption}
               </option>
             ))}
           </select>
@@ -194,10 +216,11 @@ function OverviewPage() {
 
       <div className="overview-grid">
         {deviceClasses.map((deviceClass) => {
-          const screens = project.screens[deviceClass];
+          const screens = getProjectScreensForStore(project, store, deviceClass);
           const availableSizes = getProjectOutputSizesForClass(
             project,
-            deviceClass
+            deviceClass,
+            store
           );
           const selectedSizeKey = previewSizes[deviceClass];
           const outputSize = getOutputSize(selectedSizeKey);

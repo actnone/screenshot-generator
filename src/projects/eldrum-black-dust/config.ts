@@ -33,6 +33,25 @@ const config: ProjectConfig = {
     "ipad129-portrait",
     "ipad11-portrait",
   ],
+  outputSizesByStore: {
+    appStore: [
+      "iphone69-portrait",
+      "iphone65-portrait",
+      "iphone63-portrait",
+      "iphone55-portrait",
+      "ipad129-portrait",
+      "ipad11-portrait",
+    ],
+    googlePlay: [
+      "iphone69-portrait",
+      "iphone65-portrait",
+      "iphone63-portrait",
+      "iphone55-portrait",
+      "android-phone-portrait",
+      "android-tablet-portrait",
+      "android-tablet-landscape",
+    ],
+  },
   screens: {
     mobile: [
       { key: "character-portrait", component: CharacterPortrait },

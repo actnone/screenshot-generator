@@ -14,32 +14,38 @@ export type DeviceClass = 'mobile' | 'tablet' | 'desktop';
 
 export const DEVICE_CLASSES: DeviceClass[] = ['mobile', 'tablet', 'desktop'];
 
+// Distribution stores
+export type Store = 'appStore' | 'googlePlay';
+
+export const STORES: Store[] = ['appStore', 'googlePlay'];
+
 // Output Size definition
 export interface OutputSize {
   key: string;
   deviceClass: DeviceClass;
   width: number;
   height: number;
+  stores: Store[];
 }
 
 // Global registry of all available output sizes
 export const OUTPUT_SIZES: OutputSize[] = [
   // Mobile - Portrait
-  { key: 'iphone69-portrait', deviceClass: 'mobile', width: 1320, height: 2868 },
-  { key: 'iphone65-portrait', deviceClass: 'mobile', width: 1284, height: 2778 },
-  { key: 'iphone63-portrait', deviceClass: 'mobile', width: 1179, height: 2556 },
-  { key: 'iphone55-portrait', deviceClass: 'mobile', width: 1242, height: 2208 },
-  { key: 'android-phone-portrait', deviceClass: 'mobile', width: 1440, height: 2560 },
+  { key: 'iphone69-portrait', deviceClass: 'mobile', width: 1320, height: 2868, stores: ['appStore', 'googlePlay'] },
+  { key: 'iphone65-portrait', deviceClass: 'mobile', width: 1284, height: 2778, stores: ['appStore', 'googlePlay'] },
+  { key: 'iphone63-portrait', deviceClass: 'mobile', width: 1179, height: 2556, stores: ['appStore', 'googlePlay'] },
+  { key: 'iphone55-portrait', deviceClass: 'mobile', width: 1242, height: 2208, stores: ['appStore', 'googlePlay'] },
+  { key: 'android-phone-portrait', deviceClass: 'mobile', width: 1440, height: 2560, stores: ['googlePlay'] },
   // Tablet - Landscape
-  { key: 'ipad129-landscape', deviceClass: 'tablet', width: 2732, height: 2048 },
-  { key: 'ipad11-landscape', deviceClass: 'tablet', width: 2388, height: 1668 },
-  { key: 'android-tablet-landscape', deviceClass: 'tablet', width: 3840, height: 2160 }, // 16:9 - Google Play 7" & 10"
+  { key: 'ipad129-landscape', deviceClass: 'tablet', width: 2732, height: 2048, stores: ['appStore'] },
+  { key: 'ipad11-landscape', deviceClass: 'tablet', width: 2388, height: 1668, stores: ['appStore'] },
+  { key: 'android-tablet-landscape', deviceClass: 'tablet', width: 3840, height: 2160, stores: ['googlePlay'] }, // 16:9 - Google Play 7" & 10"
   // Tablet - Portrait
-  { key: 'ipad129-portrait', deviceClass: 'tablet', width: 2048, height: 2732 },
-  { key: 'ipad11-portrait', deviceClass: 'tablet', width: 1668, height: 2388 },
-  { key: 'android-tablet-portrait', deviceClass: 'tablet', width: 2160, height: 3840 }, // 9:16 - Google Play 7" & 10"
+  { key: 'ipad129-portrait', deviceClass: 'tablet', width: 2048, height: 2732, stores: ['appStore'] },
+  { key: 'ipad11-portrait', deviceClass: 'tablet', width: 1668, height: 2388, stores: ['appStore'] },
+  { key: 'android-tablet-portrait', deviceClass: 'tablet', width: 2160, height: 3840, stores: ['googlePlay'] }, // 9:16 - Google Play 7" & 10"
   // Desktop
-  { key: 'mac-landscape', deviceClass: 'desktop', width: 2880, height: 1800 },
+  { key: 'mac-landscape', deviceClass: 'desktop', width: 2880, height: 1800, stores: ['appStore'] },
 ];
 
 // Default preview sizes per device class
@@ -81,13 +87,18 @@ export interface ProjectConfig {
   name: string;
   languages: LanguageCode[];
   outputSizes: string[];
+  outputSizesByStore?: Partial<Record<Store, string[]>>;
   screens: Partial<Record<DeviceClass, ScreenConfig[]>>;
+  screensByStore?: Partial<Record<Store, Partial<Record<DeviceClass, ScreenConfig[]>>>>;
 }
 
 // Helper to get device classes used by a project
-export function getProjectDeviceClasses(project: ProjectConfig): DeviceClass[] {
+export function getProjectDeviceClasses(project: ProjectConfig, store?: Store): DeviceClass[] {
   const classes = new Set<DeviceClass>();
-  for (const sizeKey of project.outputSizes) {
+  const outputSizeKeys = store
+    ? getProjectOutputSizeKeysForStore(project, store)
+    : project.outputSizes;
+  for (const sizeKey of outputSizeKeys) {
     const deviceClass = getDeviceClassForSize(sizeKey);
     if (deviceClass) {
       classes.add(deviceClass);
@@ -99,11 +110,40 @@ export function getProjectDeviceClasses(project: ProjectConfig): DeviceClass[] {
 // Helper to get output sizes for a project filtered by device class
 export function getProjectOutputSizesForClass(
   project: ProjectConfig,
-  deviceClass: DeviceClass
+  deviceClass: DeviceClass,
+  store?: Store
 ): OutputSize[] {
-  return project.outputSizes
+  const outputSizeKeys = store
+    ? getProjectOutputSizeKeysForStore(project, store)
+    : project.outputSizes;
+  return outputSizeKeys
     .map((key) => getOutputSize(key))
     .filter((size): size is OutputSize => size !== undefined && size.deviceClass === deviceClass);
+}
+
+export function isOutputSizeForStore(key: string, store: Store): boolean {
+  const outputSize = getOutputSize(key);
+  return Boolean(outputSize?.stores.includes(store));
+}
+
+export function getProjectOutputSizeKeysForStore(project: ProjectConfig, store: Store): string[] {
+  const storeSpecificOutputSizes = project.outputSizesByStore?.[store];
+  const source = storeSpecificOutputSizes ?? project.outputSizes;
+  return source.filter((key) => isOutputSizeForStore(key, store));
+}
+
+export function getProjectOutputSizesForStore(project: ProjectConfig, store: Store): OutputSize[] {
+  return getProjectOutputSizeKeysForStore(project, store)
+    .map((key) => getOutputSize(key))
+    .filter((size): size is OutputSize => size !== undefined);
+}
+
+export function getProjectScreensForStore(
+  project: ProjectConfig,
+  store: Store,
+  deviceClass: DeviceClass
+): ScreenConfig[] | undefined {
+  return project.screensByStore?.[store]?.[deviceClass] ?? project.screens[deviceClass];
 }
 
 const projects: ProjectConfig[] = [

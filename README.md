@@ -28,6 +28,89 @@
 
 MIT License. See `LICENSE.txt` for more information.
 
+## Screenshot Generation
+
+Generate screenshots for one store at a time:
+
+- `yarn generate:app-store`
+- `yarn generate:google-play`
+
+Generate both stores:
+
+- `yarn generate:all`
+
+The default `yarn generate` command now maps to `yarn generate:app-store`.
+
+### Output structure
+
+Screenshots are written under a store-specific path:
+
+`{projectKey}/{store}/{language}/{outputSizeKey}/{index}_{screenKey}.png`
+
+Example:
+
+`eldrum-red-tide/appStore/en/iphone69-portrait/1_torturer.png`
+
+### Project config: shared vs store-specific
+
+Project configs support both shared defaults and store-specific overrides.
+
+Shared defaults:
+
+```ts
+const config: ProjectConfig = {
+  outputSizes: ["iphone69-portrait", "android-phone-portrait"],
+  screens: {
+    mobile: [
+      { key: "screen-a", component: ScreenA },
+      { key: "screen-b", component: ScreenB },
+    ],
+  },
+};
+```
+
+Store-specific sizing (with shared `screens` fallback):
+
+```ts
+const config: ProjectConfig = {
+  outputSizes: ["iphone69-portrait", "android-phone-portrait"],
+  outputSizesByStore: {
+    appStore: ["iphone69-portrait"],
+    googlePlay: ["android-phone-portrait"],
+  },
+  screens: {
+    mobile: [
+      { key: "screen-a", component: ScreenA },
+      { key: "screen-b", component: ScreenB },
+    ],
+  },
+};
+```
+
+Store-specific screen overrides (optional):
+
+```ts
+const config: ProjectConfig = {
+  outputSizes: ["iphone69-portrait", "android-phone-portrait"],
+  screens: {
+    mobile: [{ key: "shared", component: SharedScreen }],
+  },
+  screensByStore: {
+    appStore: {
+      mobile: [{ key: "ios-only", component: IosOnlyScreen }],
+    },
+    googlePlay: {
+      mobile: [{ key: "android-only", component: AndroidOnlyScreen }],
+    },
+  },
+};
+```
+
+Fallback behavior for generation:
+
+1. Use store-specific config (`outputSizesByStore` / `screensByStore`) if present.
+2. Otherwise use shared config (`outputSizes` / `screens`).
+
 
 [build-shield]: https://img.shields.io/github/workflow/status/uebelack/snailmail-screenshot-generator/Build.svg?style=for-the-badge
 [build-url]: https://github.com/uebelack/snailmail-screenshot-generator/actions/workflows/ci.yaml
