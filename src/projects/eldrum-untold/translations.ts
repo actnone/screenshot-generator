@@ -144,6 +144,32 @@ const translations: Record<string, Translation> = {
       headline: "Desvende\nsegredos",
     },
   },
+  "es": {
+    torturer: {
+      headline: "Elige y moldea\ntu camino",
+    },
+    torturerB: {
+      headline: "Elige y moldea\ntu camino",
+    },
+    explore: {
+      headline: "Viaja por\ntierras lejanas",
+    },
+    fight: {
+      headline: "Enfrenta fuerzas\nantiguas",
+    },
+    remember: {
+      headline: "Recuerda\ntu pasado…",
+    },
+    equip: {
+      headline: "Equípate\ny evoluciona",
+    },
+    revenge: {
+      headline: "…y venga\na los tuyos",
+    },
+    secrets: {
+      headline: "Descubre\nsecretos",
+    },
+  },
 };
 
 export default translations;
