@@ -1,4 +1,4 @@
-import { ScreenComponentProps } from "../../../../config";
+import type { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 import TopBackground from "../../../../components/TopBackground";
 import DeviceFrame from "../../../../components/DeviceFrame";

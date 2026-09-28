@@ -1,4 +1,4 @@
-import { ProjectConfig } from "../../config";
+import type { ProjectConfig } from "../../config";
 
 import { DiptykA } from "./components/mobile/DiptykA";
 import { DiptykB } from "./components/mobile/DiptykB";

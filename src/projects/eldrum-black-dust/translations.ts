@@ -14,7 +14,7 @@ export interface Translation {
 }
 
 const translations: Record<string, Translation> = {
-  "en": {
+  en: {
     darkRpgAdventure: {
       headline: "Make your\nchoices",
     },

@@ -4,14 +4,16 @@ import ScreenPage from "./ScreenPage";
 
 vi.mock("react-router-dom", () => ({
   useParams: () => ({
-    projectKey: "letter-app",
+    projectKey: "eldrum-untold",
     deviceClass: "mobile",
-    screenKey: "overview",
-    language: "en-US",
+    screenKey: "torturer",
+    language: "en",
     outputSizeKey: "iphone69-portrait",
   }),
+  useSearchParams: () => [new URLSearchParams({ store: "appStore" })],
 }));
 
 it("should render", () => {
-  render(<ScreenPage />);
+  const { container } = render(<ScreenPage />);
+  expect(container.querySelector(".screen")).not.toBeNull();
 });

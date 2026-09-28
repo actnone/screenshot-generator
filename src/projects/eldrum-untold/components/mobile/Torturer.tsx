@@ -2,7 +2,7 @@ import Background from "../../../../components/Background";
 import Image from "../../../../components/Image";
 import TopBackground from "../../../../components/TopBackground";
 import translations from "../../translations";
-import { ScreenComponentProps } from "../../../../config";
+import type { ScreenComponentProps } from "../../../../config";
 import { useScale } from "../../../../hooks/useScale";
 
 export function Torturer({ language }: ScreenComponentProps) {

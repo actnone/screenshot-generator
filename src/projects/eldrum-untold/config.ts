@@ -1,4 +1,4 @@
-import { ProjectConfig } from "../../config";
+import type { ProjectConfig } from "../../config";
 
 import { Torturer } from "./components/mobile/Torturer";
 import { TorturerB } from "./components/mobile/TorturerB";

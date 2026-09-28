@@ -14,7 +14,7 @@ export interface Translation {
 }
 
 const translations: Record<string, Translation> = {
-  "en": {
+  en: {
     torturer: {
       headline: "Choices shape\n your path",
     },
@@ -40,7 +40,7 @@ const translations: Record<string, Translation> = {
       headline: "Uncover\nsecrets",
     },
   },
-  "de": {
+  de: {
     torturer: {
       headline: "Wahlen formen\ndeinen Weg",
     },
@@ -66,7 +66,7 @@ const translations: Record<string, Translation> = {
       headline: "Geheimnisse\naufdecken",
     },
   },
-  "fr": {
+  fr: {
     torturer: {
       headline: "Tes choix\ntracent ta voie",
     },
@@ -92,7 +92,7 @@ const translations: Record<string, Translation> = {
       headline: "Découvrez\ndes secrets",
     },
   },
-  "ja": {
+  ja: {
     torturer: {
       headline: "選んだ道が、\n物語を導く",
     },
@@ -118,7 +118,7 @@ const translations: Record<string, Translation> = {
       headline: "秘密を\n暴け",
     },
   },
-  "pt": {
+  pt: {
     torturer: {
       headline: "Escolhas moldam\nseu rumo",
     },
@@ -144,7 +144,7 @@ const translations: Record<string, Translation> = {
       headline: "Desvende\nsegredos",
     },
   },
-  "es": {
+  es: {
     torturer: {
       headline: "Elige y moldea\ntu camino",
     },

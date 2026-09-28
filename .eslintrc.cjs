@@ -8,15 +8,26 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
+    'plugin:react/jsx-runtime',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.json'],
+    project: ['./tsconfig.eslint.json'],
   },
   plugins: ['@typescript-eslint'],
-  ignorePatterns: ['dist', '.eslintrc.js', 'vite.config.ts'],
+  rules: {
+    '@typescript-eslint/quotes': ['error', 'double', { avoidEscape: true }],
+    // Optional props are typed by TypeScript, so they don't need defaultProps.
+    'react/require-default-props': 'off',
+    'import/prefer-default-export': 'off',
+    'jsx-a11y/label-has-associated-control': ['error', { assert: 'either' }],
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: ['**/*.test.ts', '**/*.test.tsx', 'src/setupTests.ts'],
+    }],
+  },
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   overrides: [
     {
       files: ['**/*.test.ts', '**/*.test.tsx'],

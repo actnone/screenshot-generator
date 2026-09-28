@@ -1,2 +1,4 @@
 // Tablet version - uses same component as mobile
-export { default } from "../mobile/SecretEndings";
+import SecretEndings from "../mobile/SecretEndings";
+
+export default SecretEndings;

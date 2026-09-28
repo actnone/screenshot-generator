@@ -14,7 +14,7 @@ export interface Translation {
 }
 
 const translations: Record<string, Translation> = {
-  "en": {
+  en: {
     diptykA: {
       headline: "Choices shape\n your path",
     },
@@ -40,7 +40,7 @@ const translations: Record<string, Translation> = {
       headline: "…From the\nJaws of Death",
     },
   },
-  "pt": {
+  pt: {
     diptykA: {
       headline: "Escolhas moldam\nseu rumo",
     },

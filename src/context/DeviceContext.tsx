@@ -1,5 +1,7 @@
-import { createContext, useContext, ReactNode } from "react";
-import { DeviceClass } from "../config";
+import {
+  createContext, useContext, useMemo, ReactNode,
+} from "react";
+import type { DeviceClass } from "../config";
 
 interface DeviceContextValue {
   deviceClass: DeviceClass;
@@ -39,7 +41,7 @@ export function DeviceProvider({
   height,
   children,
 }: DeviceProviderProps) {
-  const value: DeviceContextValue = {
+  const value: DeviceContextValue = useMemo(() => ({
     deviceClass,
     isMobile: deviceClass === "mobile",
     isTablet: deviceClass === "tablet",
@@ -47,7 +49,7 @@ export function DeviceProvider({
     width,
     height,
     aspectRatio: getAspectRatio(width, height),
-  };
+  }), [deviceClass, width, height]);
 
   return (
     <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>

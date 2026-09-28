@@ -1,2 +1,4 @@
 // Tablet version - uses same component as mobile
-export { default } from "../mobile/DesertCity";
+import DesertCity from "../mobile/DesertCity";
+
+export default DesertCity;

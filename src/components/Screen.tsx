@@ -1,6 +1,7 @@
 import projects, {
   DeviceClass,
   LanguageCode,
+  ScreenConfig,
   Store,
   getOutputSize,
   getProjectScreensForStore,
@@ -25,11 +26,12 @@ function Screen({
   store,
 }: ScreenProps) {
   const project = projects.find((p) => p.key === projectKey);
-  const screens = project
-    ? store
+  let screens: ScreenConfig[] | undefined;
+  if (project) {
+    screens = store
       ? getProjectScreensForStore(project, store, deviceClass)
-      : project.screens[deviceClass]
-    : undefined;
+      : project.screens[deviceClass];
+  }
   const screen = screens?.find((s) => s.key === screenKey);
   const outputSize = getOutputSize(outputSizeKey);
 

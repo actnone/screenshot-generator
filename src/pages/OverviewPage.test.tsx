@@ -6,6 +6,6 @@ it("should render", () => {
   render(
     <MemoryRouter>
       <OverviewPage />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 });

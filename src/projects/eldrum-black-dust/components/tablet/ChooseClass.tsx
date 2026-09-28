@@ -1,2 +1,4 @@
 // Tablet version - uses same component as mobile
-export { default } from "../mobile/ChooseClass";
+import ChooseClass from "../mobile/ChooseClass";
+
+export default ChooseClass;

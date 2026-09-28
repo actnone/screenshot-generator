@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import projects, {
   ColorScheme,
@@ -29,20 +29,20 @@ function getSystemColorScheme(): ColorScheme {
 
 function buildPreviewSizes(
   project: (typeof projects)[number],
-  store: Store
+  store: Store,
 ): Record<DeviceClass, string> {
   const initial: Record<DeviceClass, string> = { ...DEVICE_CLASS_DEFAULTS };
   const storeDeviceClasses = getProjectDeviceClasses(project, store);
 
-  for (const dc of storeDeviceClasses) {
+  storeDeviceClasses.forEach((dc) => {
     const projectSizes = getProjectOutputSizesForClass(project, dc, store);
     if (
-      projectSizes.length > 0 &&
-      !projectSizes.find((s) => s.key === initial[dc])
+      projectSizes.length > 0
+      && !projectSizes.find((s) => s.key === initial[dc])
     ) {
       initial[dc] = projectSizes[0].key;
     }
-  }
+  });
 
   return initial;
 }
@@ -70,12 +70,12 @@ function OverviewPage() {
   // Get device classes for this project
   const deviceClasses = useMemo(
     () => getProjectDeviceClasses(project, store),
-    [project, store]
+    [project, store],
   );
 
   // Initialize preview sizes with defaults, respecting project's available sizes
   const [previewSizes, setPreviewSizes] = useState<Record<DeviceClass, string>>(
-    () => buildPreviewSizes(project, store)
+    () => buildPreviewSizes(project, store),
   );
 
   const handleProjectChange = (newProject: string) => {
@@ -122,7 +122,7 @@ function OverviewPage() {
 
   const handlePreviewSizeChange = (
     deviceClass: DeviceClass,
-    sizeKey: string
+    sizeKey: string,
   ) => {
     setPreviewSizes((prev) => ({
       ...prev,
@@ -137,9 +137,7 @@ function OverviewPage() {
           Project:
           <select
             value={project.key}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleProjectChange(e.target.value)
-            }
+            onChange={(e) => handleProjectChange(e.target.value)}
           >
             {projects.map((p) => (
               <option key={p.key} value={p.key}>
@@ -153,9 +151,7 @@ function OverviewPage() {
           Store:
           <select
             value={store}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleStoreChange(e.target.value)
-            }
+            onChange={(e) => handleStoreChange(e.target.value)}
           >
             {STORES.map((storeOption) => (
               <option key={storeOption} value={storeOption}>
@@ -169,9 +165,7 @@ function OverviewPage() {
           Language:
           <select
             value={language}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleLanguageChange(e.target.value)
-            }
+            onChange={(e) => handleLanguageChange(e.target.value)}
           >
             {project.languages.map((lang) => (
               <option key={lang} value={lang}>
@@ -185,13 +179,12 @@ function OverviewPage() {
           Scale:
           <select
             value={scale}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleScaleChange(e.target.value)
-            }
+            onChange={(e) => handleScaleChange(e.target.value)}
           >
             {SCALE_OPTIONS.map((s) => (
               <option key={s} value={s}>
-                {s * 100}%
+                {s * 100}
+                %
               </option>
             ))}
           </select>
@@ -201,9 +194,7 @@ function OverviewPage() {
           Color Scheme:
           <select
             value={colorScheme}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleColorSchemeChange(e.target.value)
-            }
+            onChange={(e) => handleColorSchemeChange(e.target.value)}
           >
             {colorSchemes.map((scheme) => (
               <option key={scheme} value={scheme}>
@@ -220,7 +211,7 @@ function OverviewPage() {
           const availableSizes = getProjectOutputSizesForClass(
             project,
             deviceClass,
-            store
+            store,
           );
           const selectedSizeKey = previewSizes[deviceClass];
           const outputSize = getOutputSize(selectedSizeKey);
@@ -235,13 +226,17 @@ function OverviewPage() {
                 <h2>{deviceClass}</h2>
                 <select
                   value={selectedSizeKey}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                    handlePreviewSizeChange(deviceClass, e.target.value)
-                  }
+                  onChange={(e) => handlePreviewSizeChange(deviceClass, e.target.value)}
                 >
                   {availableSizes.map((size) => (
                     <option key={size.key} value={size.key}>
-                      {size.key} ({size.width}×{size.height})
+                      {size.key}
+                      {" "}
+                      (
+                      {size.width}
+                      ×
+                      {size.height}
+                      )
                     </option>
                   ))}
                 </select>

@@ -1,4 +1,4 @@
-import { ProjectConfig } from "../../config";
+import type { ProjectConfig } from "../../config";
 
 // Mobile screens
 import ExploreDeadlands from "./components/mobile/ExploreDeadlands";

@@ -1,2 +1,4 @@
 // Tablet version - uses same component as mobile
-export { default } from "../mobile/ExploreDeadlands";
+import ExploreDeadlands from "../mobile/ExploreDeadlands";
+
+export default ExploreDeadlands;

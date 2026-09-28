@@ -9,10 +9,10 @@ type VerticalAlign = "top" | "center" | "bottom";
 type ScreenshotProp =
   | string
   | {
-      mobile: string;
-      tablet?: string;
-      desktop?: string;
-    };
+    mobile: string;
+    tablet?: string;
+    desktop?: string;
+  };
 
 // Base width at scale 1.0 (designed for 6.5" iPhone at 1284px)
 const BASE_FRAME_WIDTH = 550;
@@ -51,7 +51,7 @@ interface DeviceFrameProps {
   // If not specified, defaults to a percentage of device width based on device class
   width?: number;
 
-  // Aspect ratio of the screen (height/width) - auto-detected based on device class if not specified
+  // Aspect ratio of the screen (height/width), detected from the device class if not specified
   aspectRatio?: number;
 
   // Bezel size in pixels - auto-detected based on device class if not specified
@@ -113,16 +113,16 @@ function DeviceFrame({
   const scale = useScale();
 
   // Select device-specific defaults
-  const defaults = isDesktop
-    ? DEVICE_DEFAULTS.desktop
-    : isTablet
-    ? DEVICE_DEFAULTS.tablet
-    : DEVICE_DEFAULTS.mobile;
+  let defaults = DEVICE_DEFAULTS.mobile;
+  if (isDesktop) {
+    defaults = DEVICE_DEFAULTS.desktop;
+  } else if (isTablet) {
+    defaults = DEVICE_DEFAULTS.tablet;
+  }
 
   // Apply defaults for any unspecified props
   // Default width uses scale (which accounts for device class) and a base frame width
-  const finalWidth =
-    width ?? BASE_FRAME_WIDTH * scale * defaults.widthMultiplier;
+  const finalWidth = width ?? BASE_FRAME_WIDTH * scale * defaults.widthMultiplier;
   const finalAspectRatio = aspectRatio ?? defaults.aspectRatio;
   const finalBezelSize = bezelSize ?? defaults.bezelSize;
   const finalBorderRadius = borderRadius ?? defaults.borderRadius;
@@ -190,7 +190,7 @@ function DeviceFrame({
     containerStyle.top = "50%";
     transform = transform.includes("translateX")
       ? transform.replace("translateX(-50%)", "translate(-50%, -50%)")
-      : "translateY(-50%) " + transform;
+      : `translateY(-50%) ${transform}`;
   } else if (verticalAlign === "top") {
     containerStyle.top = 0;
   } else if (verticalAlign === "bottom") {

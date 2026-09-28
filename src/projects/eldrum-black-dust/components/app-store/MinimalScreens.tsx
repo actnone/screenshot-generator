@@ -1,6 +1,6 @@
 import Background from "../../../../components/Background";
 import TopBackground from "../../../../components/TopBackground";
-import { ScreenComponentProps } from "../../../../config";
+import type { ScreenComponentProps } from "../../../../config";
 import { useDevice } from "../../../../context/DeviceContext";
 import { useScale } from "../../../../hooks/useScale";
 import translations from "../../translations";

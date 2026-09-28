@@ -2,13 +2,14 @@ import { render } from "@testing-library/react";
 import Screen from "./Screen";
 
 it("should render", () => {
-  render(
+  const { container } = render(
     <Screen
-      projectKey="letter-app"
+      projectKey="eldrum-untold"
       deviceClass="mobile"
-      screenKey="overview"
-      language="en-US"
+      screenKey="torturer"
+      language="en"
       outputSizeKey="iphone69-portrait"
-    />
+    />,
   );
+  expect(container.querySelector(".screen")).not.toBeNull();
 });

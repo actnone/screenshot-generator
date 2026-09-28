@@ -1,2 +1,4 @@
 // Tablet version - uses same component as mobile
-export { default } from "../mobile/FightArena";
+import FightArena from "../mobile/FightArena";
+
+export default FightArena;

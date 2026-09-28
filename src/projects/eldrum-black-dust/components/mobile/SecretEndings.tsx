@@ -1,4 +1,4 @@
-import { ScreenComponentProps } from "../../../../config";
+import type { ScreenComponentProps } from "../../../../config";
 import translations from "../../translations";
 import TopBackground from "../../../../components/TopBackground";
 import DeviceFrame from "../../../../components/DeviceFrame";
@@ -13,8 +13,6 @@ function SecretEndings({ language }: ScreenComponentProps) {
   const scale = useScale();
   const assetPath = "/src/projects/eldrum-black-dust/assets";
   const deviceClass = useDevice();
-
-  console.log(deviceClass);
 
   const isSmall = deviceClass.isMobile && deviceClass.height < 2300;
 
