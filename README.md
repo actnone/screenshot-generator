@@ -1,32 +1,24 @@
-<div id="top"></div>
+# Screenshot Generator
 
-[![Build][build-shield]][build-url]
-[![Language][language-shield]][build-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+Generates App Store and Google Play screenshots for Act None's Eldrum games: Black Dust, Untold and Red Tide. Each screenshot is a React component, served by Vite and captured at the exact store sizes with Playwright.
 
+## Getting started
 
-<br />
-<div align="center">
-  <a href="https://github.com/uebelack/snailmail-screenshot-generator">
-    <img src="public/logo.svg" alt="Logo" width="80" height="80">
-  </a>
+- `yarn install`
+- `yarn dev` opens a preview at http://localhost:3000, where you can pick a project, store, language, scale and color scheme and see every screen for each device class.
 
-<h3 align="center">Snailmail Screenshot Generator</h3>
-  <p align="center">
-    Generator based on React and Playwright to generate nice App Store screenshots for my [Letter app](https://briefe.app).
-  </p>
-</div>
+## Projects
 
-### Built With
+Each game has a folder in `src/projects/{projectKey}` with:
 
-* [React](https://react.dev/)
-* [Playwright](https://playwright.dev/)
+- `config.ts`: the languages, output sizes and screens (see [Project config](#project-config-shared-vs-store-specific)).
+- `translations.ts`: the headline for each screen in each language.
+- `components/`: one React component per screen.
+- `assets/`: artwork and in-game screenshots used by the screens.
 
+A new project also needs to be added to the `projects` list in `src/config.ts`.
 
-## License
-
-MIT License. See `LICENSE.txt` for more information.
+To add a language to a project, add its headlines to `translations.ts` and its code to `languages` in `config.ts`.
 
 ## Screenshot Generation
 
@@ -136,14 +128,6 @@ Fallback behavior for generation:
 1. Use store-specific config (`outputSizesByStore` / `screensByStore`) if present.
 2. Otherwise use shared config (`outputSizes` / `screens`).
 
+## License
 
-[build-shield]: https://img.shields.io/github/workflow/status/uebelack/snailmail-screenshot-generator/Build.svg?style=for-the-badge
-[build-url]: https://github.com/uebelack/snailmail-screenshot-generator/actions/workflows/ci.yaml
-[language-shield]: https://img.shields.io/github/languages/top/uebelack/snailmail-screenshot-generator.svg?style=for-the-badge
-[language-url]: https://github.com/uebelack/snailmail-screenshot-generator
-[coverage-shield]: https://img.shields.io/coveralls/github/uebelack/snailmail-screenshot-generator.svg?style=for-the-badge
-[coverage-url]: https://coveralls.io/github/uebelack/snailmail-screenshot-generator
-[license-shield]: https://img.shields.io/github/license/uebelack/snailmail-screenshot-generator.svg?style=for-the-badge
-[license-url]: https://github.com/uebelack/snailmail-screenshot-generator/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/david-übelacker-600262222
+Based on [snailmail-screenshot-generator](https://github.com/uebelack/snailmail-screenshot-generator) by David Übelacker, available under the MIT license. See `LICENSE.txt`.
