@@ -14,14 +14,14 @@
 
 <h3 align="center">Snailmail Screenshot Generator</h3>
   <p align="center">
-    Generator based on React and Cypress to generate nice App Store screenshots for my [Letter app](https://briefe.app).
+    Generator based on React and Playwright to generate nice App Store screenshots for my [Letter app](https://briefe.app).
   </p>
 </div>
 
 ### Built With
 
 * [React](https://react.dev/)
-* [Cypress](https://www.cypress.io/)
+* [Playwright](https://playwright.dev/)
 
 
 ## License
@@ -30,16 +30,16 @@ MIT License. See `LICENSE.txt` for more information.
 
 ## Screenshot Generation
 
+`yarn generate` starts the dev server, renders every screen with Google Chrome and stops again when it's done. Without Chrome, run `yarn playwright install chromium` once to use Playwright's own browser.
+
+Generate everything (both stores, all projects and languages):
+
+- `yarn generate` (or `yarn generate:all`)
+
 Generate screenshots for one store at a time:
 
 - `yarn generate:app-store`
 - `yarn generate:google-play`
-
-Generate both stores:
-
-- `yarn generate:all`
-
-The default `yarn generate` command now maps to `yarn generate:app-store`.
 
 Generate screenshots for a specific app:
 
@@ -52,21 +52,29 @@ Generate screenshots for a specific app:
   - `yarn generate:google-play:untold`
   - `yarn generate:google-play:red-tide`
 
-You can also filter by project key directly via Cypress env:
+Options can be combined and passed to any of the commands above. Each takes one or more comma-separated values:
 
-- `cypress run --env store=appStore,project=eldrum-untold`
-- `cypress run --env store=googlePlay,project=eldrum-red-tide`
-- Multiple projects: `cypress run --env store=appStore,project=eldrum-untold|eldrum-red-tide`
+- `--store appStore,googlePlay`
+- `--project eldrum-untold`
+- `--language es,pt`
+- `--out <folder>`: where to write the screenshots (default `screenshots`)
+- `--concurrency <n>`: how many screens to render at once (default 4)
+
+For example, `yarn generate:app-store:untold --language es` renders only the Spanish App Store screenshots for Untold.
+
+Every screenshot is checked against its output size, so a file with the wrong dimensions stops the run with an error.
 
 ### Output structure
 
-Screenshots are written under a store-specific path:
+Screenshots are written to the `screenshots` folder under a store-specific path:
 
-`{projectKey}/{store}/{language}/{outputSizeKey}/{index}_{screenKey}.png`
+`screenshots/{projectKey}/{store}/{language}/{outputSizeKey}/{index}_{screenKey}.png`
 
 Example:
 
-`eldrum-red-tide/appStore/en/iphone69-portrait/1_torturer.png`
+`screenshots/eldrum-red-tide/appStore/en/iphone69-portrait/1_torturer.png`
+
+Existing files are overwritten; other files in the folder are left alone.
 
 ### Project config: shared vs store-specific
 
