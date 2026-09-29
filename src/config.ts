@@ -19,6 +19,9 @@ export type Store = "appStore" | "googlePlay";
 
 export const STORES: Store[] = ["appStore", "googlePlay"];
 
+// Google Play's screenshot slots, named the way fastlane's metadata folders name them
+export type GooglePlaySlot = "phoneScreenshots" | "sevenInchScreenshots" | "tenInchScreenshots";
+
 // Output Size definition
 export interface OutputSize {
   key: string;
@@ -26,25 +29,27 @@ export interface OutputSize {
   width: number;
   height: number;
   stores: Store[];
+  // The Google Play slot this size fills, for sizes used on Google Play
+  googlePlaySlot?: GooglePlaySlot;
 }
 
 // Global registry of all available output sizes
 export const OUTPUT_SIZES: OutputSize[] = [
   // Mobile - Portrait
   {
-    key: "iphone69-portrait", deviceClass: "mobile", width: 1320, height: 2868, stores: ["appStore", "googlePlay"],
+    key: "iphone69-portrait", deviceClass: "mobile", width: 1320, height: 2868, stores: ["appStore"],
   },
   {
-    key: "iphone65-portrait", deviceClass: "mobile", width: 1284, height: 2778, stores: ["appStore", "googlePlay"],
+    key: "iphone65-portrait", deviceClass: "mobile", width: 1284, height: 2778, stores: ["appStore"],
   },
   {
-    key: "iphone63-portrait", deviceClass: "mobile", width: 1179, height: 2556, stores: ["appStore", "googlePlay"],
+    key: "iphone63-portrait", deviceClass: "mobile", width: 1179, height: 2556, stores: ["appStore"],
   },
   {
-    key: "iphone55-portrait", deviceClass: "mobile", width: 1242, height: 2208, stores: ["appStore", "googlePlay"],
+    key: "iphone55-portrait", deviceClass: "mobile", width: 1242, height: 2208, stores: ["appStore"],
   },
   {
-    key: "android-phone-portrait", deviceClass: "mobile", width: 1440, height: 2560, stores: ["googlePlay"],
+    key: "android-phone-portrait", deviceClass: "mobile", width: 1440, height: 2560, stores: ["googlePlay"], googlePlaySlot: "phoneScreenshots",
   },
   // Tablet - Landscape
   {
@@ -53,19 +58,13 @@ export const OUTPUT_SIZES: OutputSize[] = [
   {
     key: "ipad11-landscape", deviceClass: "tablet", width: 2388, height: 1668, stores: ["appStore"],
   },
-  {
-    key: "android-tablet-landscape", deviceClass: "tablet", width: 3840, height: 2160, stores: ["googlePlay"],
-  }, // 16:9 - Google Play 7" & 10"
   // Tablet - Portrait
   {
-    key: "ipad129-portrait", deviceClass: "tablet", width: 2048, height: 2732, stores: ["appStore"],
+    key: "ipad129-portrait", deviceClass: "tablet", width: 2048, height: 2732, stores: ["appStore", "googlePlay"], googlePlaySlot: "tenInchScreenshots",
   },
   {
-    key: "ipad11-portrait", deviceClass: "tablet", width: 1668, height: 2388, stores: ["appStore"],
+    key: "ipad11-portrait", deviceClass: "tablet", width: 1668, height: 2388, stores: ["appStore", "googlePlay"], googlePlaySlot: "sevenInchScreenshots",
   },
-  {
-    key: "android-tablet-portrait", deviceClass: "tablet", width: 2160, height: 3840, stores: ["googlePlay"],
-  }, // 9:16 - Google Play 7" & 10"
   // Desktop
   {
     key: "mac-landscape", deviceClass: "desktop", width: 2880, height: 1800, stores: ["appStore"],
@@ -160,6 +159,26 @@ export function getProjectOutputSizesForStore(project: ProjectConfig, store: Sto
   return getProjectOutputSizeKeysForStore(project, store)
     .map((key) => getOutputSize(key))
     .filter((size): size is OutputSize => size !== undefined);
+}
+
+// Where a screenshot is written, relative to {projectKey}/{store}/{language}/, laid out the
+// way fastlane reads it. The App Store tells devices apart by image size, so its screenshots
+// share one folder. Google Play gets a folder per screenshot slot.
+export function getScreenshotFileName(
+  store: Store,
+  sizeKey: string,
+  position: number,
+  screenKey: string,
+): string {
+  const fileName = `${position}_${screenKey}.png`;
+  if (store === "appStore") {
+    return `${sizeKey}_${fileName}`;
+  }
+  const slot = getOutputSize(sizeKey)?.googlePlaySlot;
+  if (!slot) {
+    throw new Error(`${sizeKey} has no Google Play screenshot slot`);
+  }
+  return `${slot}/${fileName}`;
 }
 
 export function getProjectScreensForStore(

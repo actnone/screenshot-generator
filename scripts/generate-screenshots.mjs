@@ -113,8 +113,11 @@ try {
           config.getProjectOutputSizeKeysForStore(project, store).map((key) => {
             const deviceClass = config.getDeviceClassForSize(key);
             const { width, height } = config.getOutputSize(key);
-            const screens = config.getProjectScreensForStore(project, store, deviceClass) ?? [];
-            return { key, deviceClass, width, height, screens: screens.map((screen) => screen.key) };
+            const screens = (config.getProjectScreensForStore(project, store, deviceClass) ?? []).map((screen, index) => ({
+              key: screen.key,
+              file: config.getScreenshotFileName(store, key, index + 1, screen.key),
+            }));
+            return { key, deviceClass, width, height, screens };
           }),
         ])),
       })),
@@ -133,15 +136,15 @@ try {
       : project.languages;
     for (const store of stores) {
       for (const outputSize of project.sizesByStore[store]) {
-        outputSize.screens.forEach((screenKey, index) => {
+        for (const screen of outputSize.screens) {
           for (const language of languages) {
             jobs.push({
-              url: `${baseUrl}/screens/${project.key}/${outputSize.deviceClass}/${screenKey}/${language}/${outputSize.key}?store=${store}`,
-              file: path.join(options.out, project.key, store, language, outputSize.key, `${index + 1}_${screenKey}.png`),
+              url: `${baseUrl}/screens/${project.key}/${outputSize.deviceClass}/${screen.key}/${language}/${outputSize.key}?store=${store}`,
+              file: path.join(options.out, project.key, store, language, screen.file),
               outputSize,
             });
           }
-        });
+        }
       }
     }
   }

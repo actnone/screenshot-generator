@@ -58,13 +58,15 @@ Every screenshot is checked against its output size, so a file with the wrong di
 
 ### Output structure
 
-Screenshots are written to the `screenshots` folder under a store-specific path:
+Screenshots are written to the `screenshots` folder, laid out the way fastlane reads them, so the [store publisher](../store-publisher) can upload them as they are:
 
-`screenshots/{projectKey}/{store}/{language}/{outputSizeKey}/{index}_{screenKey}.png`
+- App Store: `screenshots/{projectKey}/appStore/{language}/{outputSizeKey}_{index}_{screenKey}.png`. All sizes share one folder, because the App Store tells devices apart by image size.
+- Google Play: `screenshots/{projectKey}/googlePlay/{language}/{slot}/{index}_{screenKey}.png`. The slot (`phoneScreenshots`, `sevenInchScreenshots` or `tenInchScreenshots`) is the output size's `googlePlaySlot` in `src/config.ts`.
 
-Example:
+Examples:
 
-`screenshots/eldrum-red-tide/appStore/en/iphone69-portrait/1_torturer.png`
+- `screenshots/eldrum-red-tide/appStore/en/iphone69-portrait_1_torturer.png`
+- `screenshots/eldrum-red-tide/googlePlay/en/tenInchScreenshots/1_torturer.png`
 
 Existing files are overwritten; other files in the folder are left alone.
 
