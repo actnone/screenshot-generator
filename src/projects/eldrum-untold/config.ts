@@ -12,7 +12,7 @@ import { Revenge } from "./components/mobile/Revenge";
 const config: ProjectConfig = {
   key: "eldrum-untold",
   name: "Eldrum: Untold",
-  languages: ["en", "de", "fr", "ja", "pt", "es"],
+  languages: ["en", "de", "fr", "ja", "pt", "es", "it"],
   outputSizes: [
     "iphone69-portrait",
     "iphone65-portrait",
