@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ScreenPage from "./pages/ScreenPage";
 import DevicePage from "./pages/DevicePage";
 import OverviewPage from "./pages/OverviewPage";
+import PromotionalImagePage from "./pages/PromotionalImagePage";
 
 import "./styles.scss";
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/screens/:projectKey/:deviceClass/:screenKey/:language/:outputSizeKey",
     element: <ScreenPage />,
+  },
+  {
+    path: "/promotional/:projectKey/:imageKey",
+    element: <PromotionalImagePage />,
   },
 ]);
 

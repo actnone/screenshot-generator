@@ -8,6 +8,8 @@ import { Fight } from "./components/mobile/Fight";
 import { Explore } from "./components/mobile/Explore";
 import { Remember } from "./components/mobile/Remember";
 import { Revenge } from "./components/mobile/Revenge";
+import { SpanishReleaseAssassin } from "./components/promotional/SpanishReleaseAssassin";
+import { SpanishReleaseTorturer } from "./components/promotional/SpanishReleaseTorturer";
 
 const config: ProjectConfig = {
   key: "eldrum-untold",
@@ -44,6 +46,10 @@ const config: ProjectConfig = {
       { key: "underworld", component: Revenge },
     ],
   },
+  promotionalImages: [
+    { key: "spanish-release-torturer", component: SpanishReleaseTorturer },
+    { key: "spanish-release-assassin", component: SpanishReleaseAssassin },
+  ],
 };
 
 export default config;

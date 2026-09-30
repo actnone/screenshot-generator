@@ -113,7 +113,13 @@ export interface ProjectConfig {
   outputSizesByStore?: Partial<Record<Store, string[]>>;
   screens: Partial<Record<DeviceClass, ScreenConfig[]>>;
   screensByStore?: Partial<Record<Store, Partial<Record<DeviceClass, ScreenConfig[]>>>>;
+  // Images for Google Play's promotional content. Google allows no text in them, so they're
+  // rendered once rather than per language.
+  promotionalImages?: ScreenConfig[];
 }
+
+// Google Play's size for promotional content images
+export const PROMOTIONAL_IMAGE_SIZE = { width: 1920, height: 1080 };
 
 export function isOutputSizeForStore(key: string, store: Store): boolean {
   const outputSize = getOutputSize(key);

@@ -101,13 +101,15 @@ try {
   // Read the project configs in the browser, where Vite serves the app's TypeScript modules.
   const configPage = await browser.newPage();
   await configPage.goto(baseUrl);
-  const { stores: availableStores, projects } = await configPage.evaluate(async () => {
+  const { stores: availableStores, promotionalImageSize, projects } = await configPage.evaluate(async () => {
     const config = await import('/src/config.ts');
     return {
       stores: config.STORES,
+      promotionalImageSize: config.PROMOTIONAL_IMAGE_SIZE,
       projects: config.default.map((project) => ({
         key: project.key,
         languages: project.languages,
+        promotionalImages: (project.promotionalImages ?? []).map((image) => image.key),
         sizesByStore: Object.fromEntries(config.STORES.map((store) => [
           store,
           config.getProjectOutputSizeKeysForStore(project, store).map((key) => {
@@ -145,6 +147,19 @@ try {
             });
           }
         }
+      }
+    }
+
+    // Google Play promotional images have no text, so each is rendered once, whatever the
+    // languages. They're uploaded by hand in the Play Console, so they sit outside googlePlay/,
+    // where the store publisher reads the screenshots.
+    if (stores.includes('googlePlay')) {
+      for (const imageKey of project.promotionalImages) {
+        jobs.push({
+          url: `${baseUrl}/promotional/${project.key}/${imageKey}`,
+          file: path.join(options.out, project.key, 'promotional', `${imageKey}.png`),
+          outputSize: promotionalImageSize,
+        });
       }
     }
   }

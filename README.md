@@ -130,6 +130,14 @@ Fallback behavior for generation:
 1. Use store-specific config (`outputSizesByStore` / `screensByStore`) if present.
 2. Otherwise use shared config (`outputSizes` / `screens`).
 
+## Google Play promotional images
+
+Images for Google Play's promotional content are listed under `promotionalImages` in a project's config, like screens. Google requires 1920 × 1080 with no text, so each is rendered once rather than per language, whenever Google Play screenshots are generated:
+
+`screenshots/{projectKey}/promotional/{imageKey}.png`
+
+Preview one at http://localhost:3000/promotional/{projectKey}/{imageKey}. Keep faces and other important parts out of the outer 15% at the top, 20% at the bottom and 10% at the sides, where Google Play may cover the image. Upload them by hand in the Play Console, under promotional content.
+
 ## License
 
 Based on [snailmail-screenshot-generator](https://github.com/uebelack/snailmail-screenshot-generator) by David Übelacker, available under the MIT license. See `LICENSE.txt`.
