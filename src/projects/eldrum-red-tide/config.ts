@@ -12,7 +12,7 @@ import { FromJaws } from "./components/mobile/FromJaws";
 const config: ProjectConfig = {
   key: "eldrum-red-tide",
   name: "Eldrum: Red Tide",
-  languages: ["en", "pt"],
+  languages: ["en", "pt", "de", "es"],
   outputSizes: [
     "iphone69-portrait",
     "iphone65-portrait",

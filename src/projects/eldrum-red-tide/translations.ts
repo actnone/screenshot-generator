@@ -66,6 +66,58 @@ const translations: Record<string, Translation> = {
       headline: "…Das garras\nda morte",
     },
   },
+  de: {
+    diptykA: {
+      headline: "Bestimme\ndeinen Weg",
+    },
+    diptykB: {
+      headline: "Bestimme\ndeinen Weg",
+    },
+    fight: {
+      headline: "Kämpfe und\nwähle eine Seite",
+    },
+    equip: {
+      headline: "Ausrüsten &\nentwickeln",
+    },
+    secretEndings: {
+      headline: "Geheime Enden\nentdecken",
+    },
+    explore: {
+      headline: "Ferne Länder\nerkunden",
+    },
+    saveFamily: {
+      headline: "Rette deine\nFamilie…",
+    },
+    fromJaws: {
+      headline: "…aus den Klauen\ndes Todes",
+    },
+  },
+  es: {
+    diptykA: {
+      headline: "Elige y moldea\ntu camino",
+    },
+    diptykB: {
+      headline: "Elige y moldea\ntu camino",
+    },
+    fight: {
+      headline: "Lucha y elige\nun bando",
+    },
+    equip: {
+      headline: "Equípate\ny evoluciona",
+    },
+    secretEndings: {
+      headline: "Descubre finales\nsecretos",
+    },
+    explore: {
+      headline: "Explora tierras\nlejanas",
+    },
+    saveFamily: {
+      headline: "Salva a tu\nfamilia…",
+    },
+    fromJaws: {
+      headline: "…de las garras\nde la muerte",
+    },
+  },
 };
 
 export default translations;
