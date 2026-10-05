@@ -42,10 +42,10 @@ const translations: Record<string, Translation> = {
   },
   de: {
     torturer: {
-      headline: "Wahlen formen\ndeinen Weg",
+      headline: "Bestimme\ndeinen Weg",
     },
     torturerB: {
-      headline: "Wahlen formen\ndeinen Weg",
+      headline: "Bestimme\ndeinen Weg",
     },
     explore: {
       headline: "Ferne Länder\nbereisen",
